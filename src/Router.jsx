@@ -1,6 +1,8 @@
 import React from 'react';
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import {createBrowserRouter} from "react-router-dom";
 
+import RootLayout from './layout/root-layout';
+import MainPage from './pages/Main/MainPage';
 import { 
   Main,
   Login,
@@ -13,29 +15,65 @@ import {
   MyPageProfileEdit, 
   PopularWeeklyBoard,
   SignUp,
-  NotFound 
+  NotFound
 } from "./pages";
 
-const Router = () => {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="Login" element={<Login />} />
-        <Route path="Board" element={<Board />} />
-        <Route path="MainBoard" element={<MainBoard />} />
-        <Route path="MainBoardDetail" element={<MainBoardDetail />} />
-        <Route path="Map" element={<Map />} />
-        <Route path="MyPageBookMark" element={<MyPageBookMark />} />
-        <Route path="MyPageEmailManage" element={<MyPageEmailManage />} />
-        <Route path="MyPageProfileEdit" element={<MyPageProfileEdit />} />
-        <Route path="PopularWeeklyBoard" element={<PopularWeeklyBoard />} />
-        <Route path="SignUp" element={<SignUp />} />
-        <Route path="NotFound" element={<NotFound />} />
-      </Routes>
-    </BrowserRouter>
-  );
-};
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <RootLayout/>,
+    errorElement: <NotFound/>,
+    children: [
+        {
+            index: true,
+            element: <Main/>
+        },
+        {
+            path: 'Login',
+            element: <Login/>
+        },
+        {
+          path: 'MainPage',
+          element: <MainPage/>
+        },
+        {
+            path: 'Board/:post_id',
+            element: <Board/>
+        },
+        {
+            path: 'MainBoard',
+            element: <MainBoard/>
+        },
+        {
+            path: 'MainBoardDetail',
+            element: <MainBoardDetail/>
+        },
+        {
+            path: 'Map',
+            element: <Map/>
+        },
+        {
+            path: 'MyPageBookMark',
+            element: <MyPageBookMark/>
+        },
+        {
+            path: 'MyPageEmailManage',
+            element: <MyPageEmailManage/>
+        },
+        {
+            path: 'MyPageProfileEdit',
+            element: <MyPageProfileEdit/>
+        },
+        {
+            path: 'PopularWeeklyBoard',
+            element: <PopularWeeklyBoard/>
+        },
+        {
+            path: 'SignUp',
+            element: <SignUp/>
+        },
+    ]
+  },
+]);
 
-export default Router;
-
+export default router;
