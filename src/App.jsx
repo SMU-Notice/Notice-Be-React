@@ -1,12 +1,11 @@
 import React from "react";
-import Router from "./Router";
-import { Outlet} from 'react-router-dom';
-
+import {RouterProvider} from "react-router-dom";
+import router from './Router';
 
 function App() {
 
     return (
-        <Router />
+        <RouterProvider router={router}/>
     );
 }
 
