@@ -10,3 +10,9 @@ export { default as MyPageProfileEdit } from "./MyPageProfileEdit/MyPageProfileE
 export { default as PopularWeeklyBoard } from "./PopularWeeklyBoard/PopularWeeklyBoard.jsx";
 export { default as SignUp } from "./SignUp/SignUp.jsx";
 export { default as NotFound } from "./NotFound/NotFound.jsx";
+export { default as SocialKakao } from "./Login/SocialKakao.jsx";
+export { default as SocialGoogle } from "./Login/AuthGoogle.jsx";
+export { default as AuthKakao } from "./Login/AuthKakao.jsx";
+export { default as AuthGoogle } from "./Login/AuthGoogle.jsx";
+export { default as SocialLoginPage } from "./Login/SocialLoginPage.jsx";
+export { default as AuthKakaoLogout } from "./Login/AuthKakaoLogout.jsx";

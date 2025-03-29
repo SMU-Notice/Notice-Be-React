@@ -12,6 +12,6 @@ const Main = () => {
       <button onClick={goTo}>로그인인 페이지로 이동</button>
     </div>
   );
-  };
+};
 
 export default Main;

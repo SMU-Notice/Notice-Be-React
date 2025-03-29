@@ -13,7 +13,9 @@ import {
   MyPageProfileEdit, 
   PopularWeeklyBoard,
   SignUp,
-  NotFound 
+  NotFound,
+  AuthKakao,
+  AuthGoogle
 } from "./pages";
 
 const Router = () => {
@@ -31,7 +33,9 @@ const Router = () => {
         <Route path="MyPageProfileEdit" element={<MyPageProfileEdit />} />
         <Route path="PopularWeeklyBoard" element={<PopularWeeklyBoard />} />
         <Route path="SignUp" element={<SignUp />} />
-        <Route path="NotFound" element={<NotFound />} />
+        <Route path="*" element={<NotFound />} />
+        <Route path="api/auth/login/kakao" element={<AuthKakao />} />
+        <Route path="api/auth/login/google" element={<AuthGoogle />} />
       </Routes>
     </BrowserRouter>
   );
