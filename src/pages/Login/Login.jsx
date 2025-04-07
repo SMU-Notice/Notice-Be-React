@@ -1,16 +1,20 @@
-import { useNavigate } from "react-router-dom";
+//import { useNavigate } from "react-router-dom";
+import SocialLoginPage from "./SocialLoginPage";
+import SocialKakao from "./SocialKakao";
+//import SocialNaver from "./SocialNaver";
+import SocialGoogle from "./SocialGoogle";
 
 const Login = () => {
-  const navigate = useNavigate();
-  const goTo = () => {
-    navigate('/');
-  };
+  const handleKakao = SocialKakao();
+  //const handleNaver = SocialNaver();
+  const handleGoogle = SocialGoogle();
 
   return (
-    <div>
-      <h1>Login Page</h1>
-      <button onClick={goTo}>메인 페이지로 이동</button>
-    </div>
+    <SocialLoginPage
+      onKakaoLogin={handleKakao}
+      onNaverLogin={handleKakao}
+      onGoogleLogin={handleGoogle}
+    />
   );
 };
 
