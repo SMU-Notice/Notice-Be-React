@@ -4,7 +4,7 @@ export const CheckID = () => {
     const googleToken = localStorage.getItem('googleToken');
   
     const textStyle = {
-      fontFamily: "'Arial', sans-serif",  
+      fontFamily: "'Cafe24Ssurround', sans-serif",  
       fontSize: '16px',                   
       color: '#333',                      
     };

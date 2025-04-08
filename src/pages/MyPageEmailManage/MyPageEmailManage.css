@@ -1,13 +1,14 @@
+
 /* 전체 레이아웃 */
 .emailmanage-container {
     display: flex;
     min-height: 100vh;
-    font-family: "Arial", sans-serif;
+    font-family: "Cafe24Ssurround", sans-serif;
   }
   
   /* 사이드바 */
   .sidebar {
-    width: 200px;
+    width: 100px;
     background-color: #f7f6fc;
     padding: 20px 10px;
   }

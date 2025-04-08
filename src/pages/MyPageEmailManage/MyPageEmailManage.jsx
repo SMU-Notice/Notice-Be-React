@@ -22,13 +22,20 @@ const MyPageEmailManage = () => {
 
   return (
     <div className="emailmanage-container">
-      <aside className="sidebar">
+      <aside className="sidebar" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <nav>
-          <ul>
-            <li>북마크</li>
-            <li>메일 관리</li>
-            <li>회원 정보</li>
-          </ul>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '20px',
+              alignItems: 'center',
+            }}
+          >
+            <button style={sidebarButtonStyle}>북마크</button>
+            <button style={sidebarButtonStyle}>메일 관리</button>
+            <button style={sidebarButtonStyle}>회원 정보</button>
+          </div>
         </nav>
       </aside>
       <main className="main" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
@@ -83,4 +90,11 @@ const popupContentStyle = {
   borderRadius: '10px',
 };
 
+const sidebarButtonStyle = {
+  width: '100px',
+  height: '40px',
+  border: 'none',
+  fontSize: '14px',
+  cursor: 'pointer',
+};
 export default MyPageEmailManage;
