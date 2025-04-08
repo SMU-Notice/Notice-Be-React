@@ -2,39 +2,27 @@
 import "./MyPageEmailManage.css";
 import { CheckID }from "./CheckID";
 import { MajorSelect }from "./MajorSelect";
-import React, { useState } from 'react';
+import { EmailInput }from "./EmailInput"
+//import React, { useState } from 'react';
 
 const MyPageEmailManage = () => {
   // const navigate = useNavigate();
   // const goToLogin = () => {
   //   navigate('/Login');
   // };
-  
-  const [showPopup, setShowPopup] = useState(false);
-
-  const handleButtonClick = () => {
-    setShowPopup(true);
-  };
-  
-  const handleClosePopup = () => {
-    setShowPopup(false);
-  };
 
   return (
     <div className="emailmanage-container">
-      <aside className="sidebar" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <aside className="sidebar">
         <nav>
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '20px',
-              alignItems: 'center',
-            }}
-          >
-            <button style={sidebarButtonStyle}>북마크</button>
-            <button style={sidebarButtonStyle}>메일 관리</button>
-            <button style={sidebarButtonStyle}>회원 정보</button>
+          <div className="sidebar-buttons">
+            <button>북마크</button>
+            <button>
+              메일<br/>관리
+            </button>
+            <button>
+              회원<br/>정보
+            </button>
           </div>
         </nav>
       </aside>
@@ -43,58 +31,13 @@ const MyPageEmailManage = () => {
         <CheckID />
         <div>
         <h2 style={{fontSize: '16px'}}>메일 수정하기</h2>
-        <button 
-          onClick={handleButtonClick} 
-          style={{
-          backgroundColor: '#3498db', // 배경색
-          color: 'white',
-          width: '100px',
-          height: '25px',
-          fontSize: '12px',
-          border: 'none',
-          borderRadius: '6px',
-          padding: '0px 0px',}}
-        >
-          인증하기
-        </button>
+        <EmailInput />
         </div>
-        {showPopup && (
-          <div style={popupStyle}>
-            <div style={popupContentStyle}>
-              <p>여기는 팝업입니다!</p>
-              <button onClick={handleClosePopup}>닫기</button>
-            </div>
-          </div>
-        )}
         <MajorSelect />
       </main>
     </div>
   );
 };
 
-const popupStyle = {
-  position: 'fixed',
-  top: 0,
-  left: 0,
-  width: '100vw',
-  height: '100vh',
-  backgroundColor: 'rgba(0, 0, 0, 0.5)',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-};
 
-const popupContentStyle = {
-  backgroundColor: 'white',
-  padding: '20px',
-  borderRadius: '10px',
-};
-
-const sidebarButtonStyle = {
-  width: '100px',
-  height: '40px',
-  border: 'none',
-  fontSize: '14px',
-  cursor: 'pointer',
-};
 export default MyPageEmailManage;
