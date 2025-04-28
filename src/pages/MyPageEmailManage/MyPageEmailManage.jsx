@@ -1,4 +1,4 @@
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./MyPageEmailManage.css";
 import { CheckID }from "./CheckID";
 import { MajorSelect }from "./MajorSelect";
@@ -6,21 +6,25 @@ import { EmailInput }from "./EmailInput"
 //import React, { useState } from 'react';
 
 const MyPageEmailManage = () => {
-  // const navigate = useNavigate();
-  // const goToLogin = () => {
-  //   navigate('/Login');
-  // };
+  const navigate = useNavigate();
+  const goToBookmark = () => {
+    navigate('/bookmark');
+  };
+  const goToProfileEdit = () => {
+    navigate('/MyPageProfileEdit');
+  };
+  
 
   return (
     <div className="emailmanage-container">
       <aside className="sidebar">
         <nav>
           <div className="sidebar-buttons">
-            <button>북마크</button>
+            <button onClick={goToBookmark}>북마크</button>
             <button>
               메일<br/>관리
             </button>
-            <button>
+            <button onClick={goToProfileEdit}>
               회원<br/>정보
             </button>
           </div>

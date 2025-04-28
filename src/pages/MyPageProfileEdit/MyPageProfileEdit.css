@@ -1,6 +1,6 @@
 
 /* 전체 레이아웃 */
-.emailmanage-container {
+.profileedit-container {
     display: flex;
     min-height: 100vh;
     font-family: "Cafe24Ssurround", sans-serif;
@@ -12,7 +12,7 @@
     min-width: 100px;
     max-width: 100px;
     flex-shrink: 0;
-    background-color: #f7f6fc !important;
+    background-color: #f7f6fc;
     padding: 20px 10px;
     display: flex;
     flex-direction: column;
@@ -36,8 +36,8 @@
   text-align: center;
   height: 40px;
 
-  background-color: #f7f6fc!important;
-  color: #09144D!important;
+  background-color: #f7f6fc;
+  color: #09144D;
   border: none;
   border-radius: 6px;
   font-size: 14px;

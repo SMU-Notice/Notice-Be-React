@@ -16,9 +16,77 @@ export const EmailInput = () => {
       alert("유효한 이메일을 입력해주세요.");
       return;
     }
+    
+  // 새 창 열기
+  const popup = window.open(
+    "", // 빈 페이지
+    "emailVerification",
+    "width=400,height=300,left=200,top=200"
+  );
 
-    console.log("입력된 이메일:", fullEmail);
-    alert(`입력된 이메일: ${fullEmail}`);
+  if (popup) {
+    popup.document.write(`
+      <html>
+        <head>
+          <title>인증번호 입력</title>
+          <style>
+            body { font-family: sans-serif; padding: 20px; }
+            input {
+              padding: 8px;
+              width: 100%;
+              margin-top: 10px;
+              font-size: 16px;
+              border: 1px solid #ccc;
+              border-radius: 4px;
+            }
+            button {
+              margin-top: 12px;
+              padding: 10px 16px;
+              background-color: #1b1d4d;
+              color: white;
+              border: none;
+              border-radius: 6px;
+              cursor: pointer;
+              font-size: 15px;
+            }
+          </style>
+        </head>
+        <body>
+          <h2>이메일 인증</h2>
+          <p>보내드린 인증번호를 입력해주세요:</p>
+          <input type="text" placeholder="인증번호 입력" id="authInput"/>
+          <button onclick="window.alert('인증번호가 확인되었습니다!'); window.close();">확인</button>
+        </body>
+      </html>
+    `);
+  }
+
+  // 실제 이메일 보내기
+  verifyEmail(fullEmail);
+
+
+    async function verifyEmail(token) {
+      try {
+          console.log("🟢 Backend에 이메일 전달 중:", token);
+
+          const response = await fetch(`https://test.smu-notice.kr/api/email/verification/send`, {
+              method: "POST",
+              headers: {
+                  "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ fullEmail }),
+              mode: "cors",
+              credentials: "include",
+          });
+
+          if (!response.ok) throw new Error("요청 실패");
+
+          const data = await response.json();
+          console.log("🔑 백엔드 응답:", data.data);
+      } catch (error) {
+          console.error("❌ 토큰 요청 오류:", error);
+      }
+  }
   };
 
   return (

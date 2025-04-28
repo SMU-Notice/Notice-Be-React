@@ -20,7 +20,7 @@ const AuthKakao = () => {
             try {
                 console.log("🟢 Backend에 access token 전달 중:", token);
 
-                const response = await fetch(`http://localhost:8080/api/auth/login/${provider}?code=${encodeURIComponent(token)}`, {
+                const response = await fetch(`https://test.smu-notice.kr/api/auth/login/${provider}?code=${encodeURIComponent(token)}`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -36,7 +36,7 @@ const AuthKakao = () => {
 
                 localStorage.setItem("kakaoToken", data.data);
 
-                //window.location.href = "/";
+                window.location.href = "/";
             } catch (error) {
                 console.error("❌ 토큰 요청 오류:", error);
             }

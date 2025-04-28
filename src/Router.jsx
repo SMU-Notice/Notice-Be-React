@@ -60,11 +60,11 @@ const router = createBrowserRouter([
             element: <MyPageBookMark/>
         },
         {
-            path: 'MyPageEmailManage',
+            path: 'MyPageProfileEdit',
             element: <MyPageEmailManage/>
         },
         {
-            path: 'MyPageProfileEdit',
+            path: 'MyPageEmailManage',
             element: <MyPageProfileEdit/>
         },
         {

@@ -20,7 +20,7 @@ const AuthNaver = () => {
             try {
                 console.log("🟢 Backend에 Naver code 전달 중:", code);
 
-                const response = await fetch(`http://localhost:8080/api/auth/login/${provider}?code=${encodeURIComponent(code)}&state=${encodeURIComponent(state)}`, {
+                const response = await fetch(`https://test.smu-notice.kr/api/auth/login/${provider}?code=${encodeURIComponent(code)}&state=${encodeURIComponent(state)}`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",

@@ -1,93 +1,141 @@
 /* 전체 레이아웃 */
 .bookmark-container {
-    display: flex;
-    min-height: 100vh;
-    font-family: "Arial", sans-serif;
-  }
-  
-  /* 사이드바 */
-  .sidebar {
-    width: 200px;
-    background-color: #f7f6fc;
-    padding: 20px 10px;
-  }
-  
-  .logo {
-    font-weight: bold;
-    font-size: 20px;
-    color: #0c0e3c;
-    margin-bottom: 40px;
-  }
-  
-  .sidebar ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .sidebar li {
-    margin-bottom: 20px;
-    font-size: 16px;
-    font-weight: bold;
-  }
-  
-  /* 메인 컨텐츠 */
-  .main {
-    flex: 1;
-    padding: 20px 40px;
-  }
-  
-  /* 상단바 */
-  .topbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .top-links a {
-    margin-left: 20px;
-    font-size: 14px;
-    text-decoration: none;
-    color: #0c0e3c;
-    font-weight: bold;
-  }
-  
-  /* 제목 */
-  .title {
-    text-align: center;
-    font-size: 28px;
-    font-weight: bold;
-    margin: 40px 0 30px;
-  }
-  
-  /* 폴더들 */
-  .folder-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-    gap: 40px;
-    justify-items: center;
-  }
-  
-  .folder {
-    width: 100px;
-    height: 80px;
-    background: linear-gradient(to top, #0c0e3c 60%, #2d3050 60%);
-    border-radius: 5px;
-    text-align: center;
-    color: white;
-    font-weight: bold;
-    padding-top: 65px;
-    cursor: pointer;
-    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
-  }
-  
-  .new-folder {
-    background: none;
-    border: 2px solid #0c0e3c;
-    color: #0c0e3c;
-    font-size: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-top: 0;
-  }
-  
+  display: flex;
+  min-height: 100vh;
+  font-family: "Cafe24Ssurround", sans-serif;
+  overflow: hidden;
+}
+
+/* 사이드바 */
+.sidebar {
+  width: 100px;
+  min-width: 100px;
+  max-width: 100px;
+  flex-shrink: 0;
+  background-color: #f7f6fc;
+  padding: 20px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  box-sizing: border-box;
+  justify-content: center;
+}
+
+/* 사이드바 버튼 묶음 */
+.sidebar-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.sidebar button {
+  font-family: "Cafe24Ssurround", sans-serif;
+  font-size: 14px;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  padding: 4px;
+  white-space: normal;         
+  word-break: break-word;    
+  overflow-wrap: break-word;
+  line-height: 1.2;
+  text-align: center;
+  height: 40px;
+  background-color: #f7f6fc;
+  color: #09144D;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  transform: translateY(-150px);
+}
+
+/* 메인 컨텐츠 */
+.main {
+  flex: 1;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 폴더 그리드 */
+.folder-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  justify-content: center;
+  align-items: flex-start;
+  flex: 1;
+}
+
+/* 폴더 기본 스타일 */
+.folder {
+  width: 120px;
+  height: 100px;
+  background: linear-gradient(to top, #0c0e3c 60%, #2d3050 60%);
+  border-radius: 5px;
+  text-align: center;
+  color: white;
+  font-weight: bold;
+  padding-top: 65px;
+  cursor: pointer;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.5s ease;
+}
+
+/* 폴더 펼쳐질 때 */
+.folder.opened {
+  width: 90%;
+  height: 80%;
+  font-size: 24px;
+  padding-top: 40px;
+}
+
+/* 폴더 숨길 때 */
+.folder.hidden {
+  opacity: 0;
+  transform: scale(0.8);
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+/* 새 폴더 (+) 스타일 */
+.new-folder {
+  background: none;
+  border: 2px dashed #7b7ec7;
+  color: #7b7ec7;
+  font-size: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 0;
+}
+
+/* 열려진 폴더 제목 */
+.opened-folder-title {
+  text-align: left;
+  width: 100%;
+  padding: 0 20px;
+  font-size: 28px;
+  font-weight: bold;
+  color: #0c0e3c;
+  margin-bottom: 20px;
+}
+
+/* 파일 리스트 */
+.file-list {
+  margin-top: 10px;
+  background-color: #f7f6fc;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.file-item {
+  padding: 8px 0;
+  font-size: 16px;
+  border-bottom: 1px solid #ddd;
+}
