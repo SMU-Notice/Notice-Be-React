@@ -9,20 +9,15 @@
 /* 사이드바 */
 .sidebar {
   width: 100px;
-  min-width: 100px;
-  max-width: 100px;
-  flex-shrink: 0;
   background-color: #f7f6fc;
   padding: 20px 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
   box-sizing: border-box;
   justify-content: center;
 }
 
-/* 사이드바 버튼 묶음 */
 .sidebar-buttons {
   display: flex;
   flex-direction: column;
@@ -34,13 +29,9 @@
   font-family: "Cafe24Ssurround", sans-serif;
   font-size: 14px;
   width: 100%;
-  min-width: 0;
-  max-width: 100%;
   padding: 4px;
-  white-space: normal;         
-  word-break: break-word;    
-  overflow-wrap: break-word;
-  line-height: 1.2;
+  white-space: normal;
+  word-break: break-word;
   text-align: center;
   height: 40px;
   background-color: #f7f6fc;
@@ -52,7 +43,7 @@
   transform: translateY(-150px);
 }
 
-/* 메인 컨텐츠 */
+/* 메인 */
 .main {
   flex: 1;
   padding: 40px;
@@ -64,7 +55,7 @@
 .folder-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 40px;
+  gap: 30px;
   justify-content: center;
   align-items: flex-start;
   flex: 1;
@@ -74,7 +65,7 @@
 .folder {
   width: 120px;
   height: 100px;
-  background: linear-gradient(to top, #0c0e3c 60%, #2d3050 60%);
+  background: linear-gradient(to top, #0c0e3c 80%, #2d3050 80%);
   border-radius: 5px;
   text-align: center;
   color: white;
@@ -84,26 +75,48 @@
   box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
   position: relative;
   overflow: hidden;
-  transition: all 0.5s ease;
+  transition: all 0.4s ease;
 }
 
-/* 폴더 펼쳐질 때 */
-.folder.opened {
-  width: 90%;
-  height: 80%;
-  font-size: 24px;
-  padding-top: 40px;
+/* 클릭된 폴더 전체 확장 (가로 + 세로) */
+.folder.fullscreen {
+  flex: 1 1 100%;
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  background: #f7f6fc;
+  color: #0c0e3c;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  transition: all 0.4s ease;
 }
 
-/* 폴더 숨길 때 */
+/* 숨긴 폴더 */
 .folder.hidden {
-  opacity: 0;
-  transform: scale(0.8);
-  pointer-events: none;
-  transition: all 0.3s ease;
+  display: none;
 }
 
-/* 새 폴더 (+) 스타일 */
+/* fade-in 효과 */
+.folder.fade-in {
+  animation: fadeIn 0.4s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* 새 폴더 스타일 */
 .new-folder {
   background: none;
   border: 2px dashed #7b7ec7;
@@ -115,27 +128,28 @@
   padding-top: 0;
 }
 
-/* 열려진 폴더 제목 */
-.opened-folder-title {
-  text-align: left;
-  width: 100%;
-  padding: 0 20px;
-  font-size: 28px;
+/* 폴더 내부 텍스트 */
+.folder-label {
+  font-size: 22px;
   font-weight: bold;
-  color: #0c0e3c;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 /* 파일 리스트 */
 .file-list {
-  margin-top: 10px;
-  background-color: #f7f6fc;
-  padding: 20px;
-  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  opacity: 1;
+  transition: opacity 0.4s ease;
+}
+
+.folder:not(.fullscreen) .file-list {
+  opacity: 0;
 }
 
 .file-item {
-  padding: 8px 0;
   font-size: 16px;
+  padding: 8px 0;
   border-bottom: 1px solid #ddd;
 }

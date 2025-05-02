@@ -10,8 +10,8 @@ const MyPageEmailManage = () => {
   const goToBookmark = () => {
     navigate('/bookmark');
   };
-  const goToProfileEdit = () => {
-    navigate('/MyPageProfileEdit');
+  const goToEmailManage = () => {
+    navigate('/MyPageEmailManage');
   };
   
 
@@ -21,16 +21,16 @@ const MyPageEmailManage = () => {
         <nav>
           <div className="sidebar-buttons">
             <button onClick={goToBookmark}>북마크</button>
-            <button>
+            <button onClick={goToEmailManage}>
               메일<br/>관리
             </button>
-            <button onClick={goToProfileEdit}>
+            <button>
               회원<br/>정보
             </button>
           </div>
         </nav>
       </aside>
-      <main className="main" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+      <div className="main">
         <h1 className="title">회원 정보</h1>
         <CheckID />
         <div>
@@ -38,7 +38,7 @@ const MyPageEmailManage = () => {
         <EmailInput />
         </div>
         <MajorSelect />
-      </main>
+      </div>
     </div>
   );
 };

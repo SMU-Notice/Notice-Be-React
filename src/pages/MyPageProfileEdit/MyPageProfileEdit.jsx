@@ -1,10 +1,19 @@
 import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import "./MyPageProfileEdit.css";
 
 const topCategories = ['상명', '서울'];
 const bottomCategories = ['전체', '학사', '일반', '사회봉사', '등록장학', '학생생활', '글로벌', '진로취업', '비교과', '코로나19'];
 
 export const MyPageProfileEdit = () => {
+  const navigate = useNavigate();
+  const goToBookmark = () => {
+    navigate('/bookmark');
+  };
+  const goToProfileEdit = () => {
+    navigate('/MyPageProfileEdit');
+  };
+
   const [selectedTop, setSelectedTop] = useState('');
   const [selectedBottom, setSelectedBottom] = useState('');
   const [selectedPairs, setSelectedPairs] = useState([]);
@@ -38,15 +47,15 @@ export const MyPageProfileEdit = () => {
   };
 
   return (
-    <div classname="profileedit-container">
+    <div className="profileedit-container">
       <aside className="sidebar">
         <nav>
           <div className="sidebar-buttons">
-            <button>북마크</button>
+            <button onClick={goToBookmark}>북마크</button>
             <button>
               메일<br/>관리
             </button>
-            <button>
+            <button onClick={goToProfileEdit}>
               회원<br/>정보
             </button>
           </div>
