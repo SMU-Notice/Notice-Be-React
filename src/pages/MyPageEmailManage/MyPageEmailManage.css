@@ -1,4 +1,8 @@
-
+.title {
+  text-align: center;
+  font-size: 48px;
+  margin-bottom: 24px;
+}
 /* 전체 레이아웃 */
 .emailmanage-container {
     display: flex;
@@ -7,43 +11,16 @@
     overflow: hidden;
   }
 
-  .sidebar {
-    width: 100px;
-    min-width: 100px;
-    max-width: 100px;
-    flex-shrink: 0;
-    background-color: #f7f6fc !important;
-    padding: 20px 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-    box-sizing: border-box;
-    justify-content: center;
-  }
-/* 버튼 스타일 */
-.sidebar button {
-  font-family: 'Cafe24Ssurround', sans-serif;
-  font-size: 12px;
-  width: 100%;
-  min-width: 0; 
-  max-width: 100%;
-  padding: 4px;
-  white-space: normal;         
-  word-break: break-word;    
-  overflow-wrap: break-word;
-  line-height: 1.2;
-  text-align: center;
-  height: 40px;
-
-  background-color: #f7f6fc!important;
-  color: #09144D!important;
-  border: none;
-  border-radius: 6px;
-  font-size: 14px;
-  cursor: pointer;
-  margin-bottom: 20px;
-  transform: translateY(-150px);
+/* 사이드바 */
+.sidebar {
+  width: 100px;
+  background-color: #f7f6fc;
+  padding: 20px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  justify-content: center;
 }
 
 .sidebar-buttons {
@@ -53,3 +30,23 @@
   align-items: center;
 }
 
+.sidebar button {
+  font-family: "Cafe24Ssurround", sans-serif;
+  font-size: 24px;
+  width: 100%;
+  padding: 4px;
+  white-space: normal;
+  word-break: break-word;
+  text-align: center;
+  height: 40px;
+  background-color: #f7f6fc;
+  color: #09144D;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-bottom: 24px;
+  transform: translateY(-150px);
+}
+.sidebar-buttons button:nth-child(2) {
+  margin-bottom: 40px; /* 메일 관리 아래에 여백 추가 */
+}

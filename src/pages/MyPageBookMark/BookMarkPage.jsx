@@ -1,20 +1,30 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./BookMarkPage.css";
+import folderIcon from "../../assets/folder.svg";
+import folderplus from "../../assets/folderplus.svg";
 
-const folders = ["★장학금★", "수강신청", "등록", "기타", "+"];
+const initialFolders = ["★장학금★", "수강신청", "등록", "기타"];
 
 const BookMarkPage = () => {
   const navigate = useNavigate();
   const goToEmailManage = () => navigate('/MyPageEmailManage');
   const goToProfileEdit = () => navigate('/MyPageProfileEdit');
 
+  const [folders, setFolders] = useState(initialFolders);
   const [openFolderIndex, setOpenFolderIndex] = useState(null);
   const [folderContents, setFolderContents] = useState({});
   const [isClosing, setIsClosing] = useState(false);
 
   const handleFolderClick = async (idx) => {
-    if (folders[idx] === "+") return;
+    // 마지막 "+" 버튼 처리
+    if (idx === folders.length) {
+      const newName = prompt("새 폴더 이름을 입력하세요:");
+      if (newName && newName.trim() !== "") {
+        setFolders([...folders, newName.trim()]);
+      }
+      return;
+    }
 
     if (openFolderIndex === idx) {
       setIsClosing(true);
@@ -54,8 +64,11 @@ const BookMarkPage = () => {
       </aside>
 
       <div className="main">
+        <h1 className="title">북마크 관리</h1>
+
         <div className="folder-grid">
-          {folders.map((name, idx) => {
+          {[...folders, "+"].map((name, idx) => {
+            const isPlus = name === "+";
             const isOpened = openFolderIndex === idx;
             const isHidden = openFolderIndex !== null && !isOpened;
 
@@ -63,22 +76,41 @@ const BookMarkPage = () => {
               <div
                 key={idx}
                 className={`folder 
-                  ${name === "+" ? "new-folder" : ""}
+                  ${isPlus ? "new-folder" : ""}
                   ${isHidden ? "hidden" : ""}
                   ${isOpened ? "fullscreen" : ""}
                   ${openFolderIndex === null && !isClosing ? "fade-in" : ""}
                 `}
                 onClick={() => handleFolderClick(idx)}
+                style={
+                  isOpened && !isPlus
+                    ? {
+                        backgroundImage: `url(${folderIcon})`,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                        backgroundRepeat: 'no-repeat',
+                      }
+                    : {}
+                }
               >
-                <div className="folder-label">
-                  {isOpened ? folders[openFolderIndex] : name}
-                </div>
-                {isOpened && (
-                  <div className="file-list">
-                    {folderContents[openFolderIndex]?.map((file, i) => (
-                      <div key={i} className="file-item">📄 {file}</div>
-                    ))}
-                  </div>
+                {!isOpened ? (
+                  <>
+                    <img
+                      src={isPlus ? folderplus : folderIcon}
+                      alt="폴더 아이콘"
+                      className="folder-icon"
+                    />
+                    <div className="folder-label">{isPlus ? "" : name}</div>
+                  </>
+                ) : (
+                  <>
+                    <div className="folder-label fullscreen-label">{folders[openFolderIndex]}</div>
+                    <div className="file-list">
+                      {folderContents[openFolderIndex]?.map((file, i) => (
+                        <div key={i} className="file-item">📄 {file}</div>
+                      ))}
+                    </div>
+                  </>
                 )}
               </div>
             );

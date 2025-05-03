@@ -1,4 +1,8 @@
-
+.title {
+  text-align: center;
+  font-size: 48px;
+  margin-bottom: 24px;
+}
 /* 전체 레이아웃 */
 .profileedit-container {
     display: flex;
@@ -24,7 +28,7 @@
 /* 버튼 스타일 */
 .sidebar button {
   font-family: 'Cafe24Ssurround', sans-serif;
-  font-size: 12px;
+  font-size: 24px;
   width: 100%;
   min-width: 0; 
   max-width: 100%;
