@@ -4,7 +4,7 @@ const Navibar = styled.div`
   position: relative;
   top: 0;
   width: 100%;
-  background: #09144D;
+  background: rgba(9, 20, 77, 1); 
   padding: 1rem 1.5rem;
   display: flex;
   justify-content: space-between;

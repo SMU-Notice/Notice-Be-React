@@ -22,7 +22,7 @@ const PopularWeeklyBoard = () => {
 
   return (
     <Container>
-      <Title>주간 인기 공지<br />TOP10</Title>
+      <Title>월간 인기 공지</Title>
       <NoticeList>
         {notices.map((notice) => (
           <NoticeItem key={notice.post_id} onClick={() => goToBoard(notice.post_id)}>

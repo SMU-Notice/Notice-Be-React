@@ -4,10 +4,6 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 30px;
-  margin-top: 30px;
-  position: relative;
-  height: 100vh;
 `;
 
 const Title = styled.h1`
@@ -19,19 +15,79 @@ const Title = styled.h1`
   color: #09144D;
 `;
 
+const Content = styled.div`
+  width: 70%;
+  background: #fff;
+`
+
+const Tabs = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+`;
+
+const Tab = styled.button`
+  background: ${(props) => (props.active ? '#09144D;' : 'white')};
+  color: ${(props) => (props.active ? '#fff' : '#000')};
+  //border: none;
+  margin: -0.05rem;
+  padding: 0.7rem 1.05rem;
+  //border-radius: 6px;
+  border: 1px solid #e4e6df;
+  cursor: pointer;
+  font-size: 12px;
+`;
+
+const FilterRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 1rem 0;
+`;
+
+const DateInput = styled.input`
+  padding: 0.5rem;
+  margin-left: 5px;
+  margin-right: 5px;
+  border-radius: 4px;
+  border: 1px solid #e4e6df;
+`;
+
+const SearchBox = styled.div`
+  position: relative;
+  margin-right: 5px;
+`;
+
+const SearchInput = styled.input`
+  padding: 0.5rem 2rem 0.5rem 0.5rem;
+  border: 1px solid #e4e6df;
+  border-radius: 4px;
+  width: 350px;
+  height: 39.5px;
+`;
+
+const Dropdown = styled.select`
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #e4e6df;
+`;
+
+const Wrap = styled.div`
+  display: flex;
+`
+
+const Line = styled.div`
+  border-bottom: 1.5px solid black;
+`
 const NoticeList = styled.div`
-  width: 60%;
   background: #fff;
   border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 `;
 
 const NoticeItem = styled.div`
   display: flex;
   align-items: center;
   padding: 10px 0;
-  border-bottom: 1px solid #ddd;
   transition: background-color 0.1s ease-in-out, font-weight 0.1s ease-in-out;
   &:last-child {
     border-bottom: none;
@@ -43,16 +99,16 @@ const NoticeItem = styled.div`
   }
 `;
 
-const Type = styled.span`
+const Site = styled.span`
   display: inline-flex;
   justify-content: center;
   align-items: center; 
   font-size: 9px;
   font-weight: bold;
   margin-right: 10px;
-  margin-left: 10px;
-  width: ${(props) => (props.first ? "25px" : "20px")};
-  height: ${(props) => (props.first ? "25px" : "20px")};
+  margin-left: 5px;
+  width: ${(props) => (props.first ? "25px" : "25px")};
+  height: ${(props) => (props.first ? "25px" : "25px")};
   color: white;
   border-radius: 50%;
   text-align: center;
@@ -77,7 +133,7 @@ const Type = styled.span`
     case "공학교육인증센터":
       return "#009688"; // 틸
   }
-  }};  
+}}; 
 `;
 
 const NoticeText = styled.div`
@@ -109,4 +165,13 @@ const ViewIcon = styled.img`
   margin-left: 8px;
 `
 
-export {Container, Title, NoticeList, NoticeItem, Type, NoticeText, DateAndViews, NoticeTitle, CalendarIcon, ViewIcon};
+const SearchIcon = styled.img`
+  position: absolute;
+  transform: translateY(-50%);
+  top: 50%;
+  right: 8px;
+  width: 15px;
+  height: 15px;
+`
+
+export{Container, Content, Title, Tabs, Tab, FilterRow, DateInput, SearchBox, SearchInput, Dropdown, Wrap, Line, NoticeList, NoticeItem, Site, NoticeText, DateAndViews, NoticeTitle, CalendarIcon, ViewIcon, SearchIcon};
