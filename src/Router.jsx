@@ -15,7 +15,10 @@ import {
   MyPageProfileEdit, 
   PopularWeeklyBoard,
   SignUp,
-  NotFound
+  NotFound,
+  AuthKakao,
+  AuthGoogle,
+  BookMarkPage
 } from "./pages";
 
 const router = createBrowserRouter([
@@ -57,11 +60,11 @@ const router = createBrowserRouter([
             element: <MyPageBookMark/>
         },
         {
-            path: 'MyPageEmailManage',
+            path: 'MyPageProfileEdit',
             element: <MyPageEmailManage/>
         },
         {
-            path: 'MyPageProfileEdit',
+            path: 'MyPageEmailManage',
             element: <MyPageProfileEdit/>
         },
         {
@@ -72,6 +75,18 @@ const router = createBrowserRouter([
             path: 'SignUp',
             element: <SignUp/>
         },
+        {
+            path: 'api/auth/login/kakao',
+            element: <AuthKakao />
+        },
+        {
+            path: 'api/auth/login/google',
+            element: <AuthGoogle />
+        },
+        {
+            path: 'bookmark',
+            element: <BookMarkPage />
+        }
     ]
   },
 ]);

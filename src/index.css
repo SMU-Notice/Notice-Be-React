@@ -1,6 +1,17 @@
-  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
-  * {
+@font-face {
+    font-family: 'Cafe24Ssurround';
+    src: url('./assets/fonts/Cafe24Ssurround.woff2') format('woff2'),
+         url('./assets/fonts/Cafe24Ssurround.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Paperlogy';
+    src: url('./assets/fonts/Paperlogy-4Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+*{
     margin: 0;
     box-sizing: border-box;
-    font-family: 'Noto Sans KR', sans-serif;
-  }
+}

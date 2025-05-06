@@ -1,17 +1,47 @@
 import { useNavigate } from "react-router-dom";
+import "./MyPageEmailManage.css";
+import { CheckID }from "./CheckID";
+import { MajorSelect }from "./MajorSelect";
+import { EmailInput }from "./EmailInput"
+//import React, { useState } from 'react';
 
 const MyPageEmailManage = () => {
   const navigate = useNavigate();
-  const goTo = () => {
-    navigate('/');
+  const goToBookmark = () => {
+    navigate('/bookmark');
   };
+  const goToEmailManage = () => {
+    navigate('/MyPageEmailManage');
+  };
+  
 
   return (
-    <div>
-      <h1>MyPageEmailManage Page</h1>
-      <button onClick={goTo}>메인 페이지로 이동</button>
+    <div className="emailmanage-container">
+      <aside className="sidebar">
+        <nav>
+          <div className="sidebar-buttons">
+            <button onClick={goToBookmark}>북마크</button>
+            <button onClick={goToEmailManage}>
+              메일<br/>관리
+            </button>
+            <button>
+              회원<br/>정보
+            </button>
+          </div>
+        </nav>
+      </aside>
+      <div className="main">
+        <h1 className="title">회원 정보</h1>
+        <CheckID />
+        <div>
+        <h2 style={{fontSize: '16px'}}>메일 수정하기</h2>
+        <EmailInput />
+        </div>
+        <MajorSelect />
+      </div>
     </div>
   );
 };
+
 
 export default MyPageEmailManage;
