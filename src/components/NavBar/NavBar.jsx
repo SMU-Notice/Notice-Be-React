@@ -7,8 +7,8 @@ const Navbar = () => {
     const goToMain = () => {
         navigate('/');
     };
-    const goToSignUp = () => {
-        navigate('/SignUp');
+    const goToMypage = () => {
+        navigate('/Mypage');
       };
       const goToLogin = () => {
         navigate('/Login');
@@ -21,7 +21,7 @@ const Navbar = () => {
           SMU NOTICE
         </NavibarTitle>
         <div>
-          <NavButton onClick={goToSignUp}>회원가입</NavButton>
+          <NavButton onClick={goToMypage}>마이페이지</NavButton>
           <NavButton onClick={goToLogin}>로그인</NavButton>
         </div>
       </Navibar>
