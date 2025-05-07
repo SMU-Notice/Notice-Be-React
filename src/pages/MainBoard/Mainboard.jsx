@@ -1,37 +1,70 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import {Container, Title, NoticeList, NoticeItem, Type, NoticeText, DateAndViews, NoticeTitle, CalendarIcon, ViewIcon } from "./MainBoardStyle";
-import calendarIcon from "../../assets/calendar.svg"
-import viewIcon from "../../assets/viewIcon.svg"
+import {
+  Container,
+  Title,
+  NoticeList,
+  NoticeItem,
+  Type,
+  NoticeText,
+  DateAndViews,
+  NoticeTitle,
+  CalendarIcon,
+  ViewIcon,
+} from "./MainBoardStyle";
 
-const notices = [
-  { post_id: 7, type : "상명", title: "[학생복지팀] 2022학년도 주거래은행 변경에 따른 KB국민카드 학생증 상시 발급안내", posted_date: "2022-08-01", view_count: "1,496,452"},
-  { post_id: 6, type : "학과", title: "[학사운영팀] 2025학년도 제1학기 수강신청 안내 및 강의시간표 공지", posted_date: "2025-01-22", view_count: "183,900"},
-  { post_id: 5, type : "상명", title: "[학사운영팀/교무팀] 2025학년도 제1학기 K-MOOC 학점인정 안내", posted_date: "2025-02-18", view_count: "75,448"},
-  { post_id: 4, type : "상명", title: "[취업진로지원팀] 상명대학교 잡플래닛, 에듀스 무료 이용 안내", posted_date: "2025-01-31", view_count: "70,704"},
-  { post_id: 3, type : "상명", title: "[교무처] 2025학년도 제1학기 스마트출결시스템 사용 및 출결관리 안내", posted_date: "2025-02-18", view_count: "48,424"},
-  { post_id: 2, type : "상명", title: "[취업진로지원팀] 상명대 대학일자리플러스센터 리플렛", posted_date: "2025-02-17", view_count: "43,435"},
-  { post_id: 1, type : "상명", title: "[학사운영팀] 2025학년도 제1학기 취업계 안내", posted_date: "2025-02-18", view_count: "43,262"}
-];
+import calendarIcon from "../../assets/calendar.svg";
+import viewIcon from "../../assets/viewIcon.svg";
 
+const siteNameMap = {
+  '통합공지': '통합',
+  '컴퓨터과학과': '컴과',
+  '학술정보관': '학술',
+  '대학일자리센터': '일자리',
+  'SW중심대학사업단': 'SW',
+  'International Student': '국제',
+  '학생생활관': '학생',
+  '대학원': '대학원',
+  '공학교육인증센터': '공학'
+};
 
 const MainBoard = () => {
+  const [notices, setNotices] = useState([]);
   const navigate = useNavigate();
-    const goToBoard = (id) => {
-      navigate(`/board/${id}`);
-    };
+
+  useEffect(() => {
+    axios.get('/api/main/recent')
+    .then(response => {
+      if (response.data.success) {
+        setNotices(response.data.data);
+      } else {
+        console.error("데이터 오류:", response.data.error);
+      }
+    })
+    .catch(error => {
+      console.error("API 호출 오류:", error);
+    });
+  }, []);
+
+  const goToBoard = (id) => {
+    navigate(`/board/${id}`);
+  };
 
   return (
     <Container>
       <Title>모든 공지</Title>
       <NoticeList>
         {notices.map((notice) => (
-          <NoticeItem key={notice.post_id} onClick={() => goToBoard(notice.post_id)}>
-            <Type tpye={notice.type}>{notice.type}</Type>
+          <NoticeItem key={notice.id} onClick={() => goToBoard(notice.id)}>
+            <Type noticeType={notice.category}>{siteNameMap[notice.category] || notice.category}</Type>
             <NoticeText>
-              <NoticeTitle tpye={notice.tpye}>{notice.title}</NoticeTitle>
+              <NoticeTitle type={notice.category}>{notice.title}</NoticeTitle>
               <DateAndViews>
-                <CalendarIcon src={calendarIcon} alt="calendarIcon"/>{notice.posted_date}<ViewIcon src={viewIcon} alt="viewIcon"/>{notice.view_count}
+                <CalendarIcon src={calendarIcon} alt="calendarIcon" />
+                {notice.postedDate}
+                <ViewIcon src={viewIcon} alt="viewIcon" />
+                {Number(notice.viewCount).toLocaleString()}
               </DateAndViews>
             </NoticeText>
           </NoticeItem>
