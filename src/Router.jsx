@@ -17,6 +17,7 @@ import {
   SignUp,
   NotFound,
   AuthKakao,
+  AuthNaver,
   AuthGoogle,
   BookMarkPage
 } from "./pages";
@@ -78,6 +79,10 @@ const router = createBrowserRouter([
         {
             path: 'api/auth/login/kakao',
             element: <AuthKakao />
+        },
+        {
+            path: 'api/auth/login/naver',
+            element: <AuthNaver />
         },
         {
             path: 'api/auth/login/google',

@@ -2,101 +2,116 @@ import { useState } from "react";
 
 export const EmailInput = () => {
   const [localPart, setLocalPart] = useState("");
-  const [domain, setDomain] = useState("");
   const [customDomain, setCustomDomain] = useState("");
   const [selected, setSelected] = useState("직접 입력");
 
   const commonDomains = ["gmail.com", "naver.com", "daum.net", "직접 입력"];
 
-  const handleRequestAuth = () => {
+  const handleRequestAuth = async () => {
     const fullEmail = `${localPart}@${selected === "직접 입력" ? customDomain : selected}`;
-
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
     if (!emailRegex.test(fullEmail)) {
       alert("유효한 이메일을 입력해주세요.");
       return;
     }
-    
-  // 새 창 열기
-  const popup = window.open(
-    "", // 빈 페이지
-    "emailVerification",
-    "width=400,height=300,left=200,top=200"
-  );
 
-  if (popup) {
-    popup.document.write(`
-      <html>
-        <head>
-          <title>인증번호 입력</title>
-          <style>
-            body { font-family: sans-serif; padding: 20px; }
-            input {
-              padding: 8px;
-              width: 100%;
-              margin-top: 10px;
-              font-size: 16px;
-              border: 1px solid #ccc;
-              border-radius: 4px;
-            }
-            button {
-              margin-top: 12px;
-              padding: 10px 16px;
-              background-color: #1b1d4d;
-              color: white;
-              border: none;
-              border-radius: 6px;
-              cursor: pointer;
-              font-size: 15px;
-            }
-          </style>
-        </head>
-        <body>
-          <h2>이메일 인증</h2>
-          <p>보내드린 인증번호를 입력해주세요:</p>
-          <input type="text" placeholder="인증번호 입력" id="authInput"/>
-          <button onclick="window.alert('인증번호가 확인되었습니다!'); window.close();">확인</button>
-        </body>
-      </html>
-    `);
-  }
+    // 이메일 인증 요청 보내기
+    try {
+      const res = await fetch("https://test.smu-notice.kr/api/email/verification/send", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ "email": fullEmail }),
+        mode: "cors",
+        credentials: "include",
+      });
 
-  // 실제 이메일 보내기
-  verifyEmail(fullEmail);
+      if (!res.ok) throw new Error("인증 코드 발송 실패");
 
+      // 인증번호 입력 팝업
+      const popup = window.open("", "emailVerification", "width=400,height=300,left=200,top=200");
 
-    async function verifyEmail(token) {
-      try {
-          console.log("🟢 Backend에 이메일 전달 중:", token);
-
-          const response = await fetch(`https://test.smu-notice.kr/api/email/verification/send`, {
-              method: "POST",
-              headers: {
-                  "Content-Type": "application/json",
-              },
-              body: JSON.stringify({ fullEmail }),
-              mode: "cors",
-              credentials: "include",
-          });
-
-          if (!response.ok) throw new Error("요청 실패");
-
-          const data = await response.json();
-          console.log("🔑 백엔드 응답:", data.data);
-      } catch (error) {
-          console.error("❌ 토큰 요청 오류:", error);
+      if (popup) {
+        popup.document.write(`
+          <html>
+            <head>
+              <title>이메일 인증</title>
+              <style>
+                body { font-family: sans-serif; padding: 20px; }
+                input {
+                  padding: 8px;
+                  width: 100%;
+                  margin-top: 10px;
+                  font-size: 16px;
+                  border: 1px solid #ccc;
+                  border-radius: 4px;
+                }
+                button {
+                  margin-top: 12px;
+                  padding: 10px 16px;
+                  background-color: #1b1d4d;
+                  color: white;
+                  border: none;
+                  border-radius: 6px;
+                  cursor: pointer;
+                  font-size: 15px;
+                }
+              </style>
+            </head>
+            <body>
+              <h2>이메일 인증</h2>
+              <p>보내드린 인증번호를 입력해주세요:</p>
+              <input type="text" id="authInput" placeholder="인증번호 입력" />
+              <button id="submitBtn">확인</button>
+              <script>
+                document.getElementById('submitBtn').onclick = function() {
+                  const code = document.getElementById('authInput').value;
+                  if (!code.trim()) {
+                    alert('인증번호를 입력해주세요.');
+                    return;
+                  }
+                  fetch('https://test.smu-notice.kr/api/email/verification/verify', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                      email: '${fullEmail}',
+                      verificationCode: code
+                    }),
+                    credentials: 'include'
+                  })
+                  .then(res => {
+                    if (!res.ok) throw new Error('검증 실패');
+                    return res.json();
+                  })
+                  .then(data => {
+                    alert('✅ 인증 성공!');
+                    window.close();
+                  })
+                  .catch(err => {
+                    alert('❌ 인증 실패: ' + err.message);
+                  });
+                };
+              </script>
+            </body>
+          </html>
+        `);
+      } else {
+        alert("팝업이 차단되었습니다. 브라우저 설정을 확인해주세요.");
       }
-  }
+    } catch (error) {
+      alert("❌ 인증 요청 실패: " + error.message);
+    }
   };
 
   return (
     <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}>
-      {/* 로컬 파트 입력 */}
       <input
         type="text"
         value={localPart}
         onChange={(e) => setLocalPart(e.target.value)}
-        placeholder="변경할 메일을 입력해주세요."
+        placeholder="이메일 앞부분"
         style={{
           padding: "8px",
           border: "1px solid #ccc",
@@ -106,7 +121,6 @@ export const EmailInput = () => {
       />
       <span>@</span>
 
-      {/* 도메인 입력 */}
       {selected === "직접 입력" ? (
         <input
           type="text"
@@ -135,13 +149,12 @@ export const EmailInput = () => {
         />
       )}
 
-      {/* 셀렉트 박스 */}
       <select
         value={selected}
         onChange={(e) => {
           setSelected(e.target.value);
           if (e.target.value !== "직접 입력") {
-            setCustomDomain(""); // 초기화
+            setCustomDomain("");
           }
         }}
         style={{
@@ -157,7 +170,6 @@ export const EmailInput = () => {
         ))}
       </select>
 
-      {/* 인증 버튼 */}
       <button
         onClick={handleRequestAuth}
         style={{
