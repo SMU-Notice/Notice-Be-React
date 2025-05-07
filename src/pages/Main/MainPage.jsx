@@ -14,10 +14,8 @@ const MainPage = () => {
 
   return(
     <>
-    <Main/>
     <PopularWeeklyBoard/>
     <MainBoard/>
-    <Map/>
     </>
 //     <SectionsContainer {...options}>
 //     <Section><Main/></Section>

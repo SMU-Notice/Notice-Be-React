@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import backgroundImg from "../../assets/backgroundimg.svg"
 import smuIcon from "../../assets/megaphone.svg"
 
 const Container = styled.div`
@@ -13,11 +12,13 @@ const Container = styled.div`
 
 const Background = styled.div`
   position: absolute;
-  inset: 0; /* top, right, bottom, left = 0 */
-  background-image: url(${backgroundImg});
+  inset: 0;
+  background-image: ${({ image }) => `url(${image})`};
+  background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   z-index: -1;
+  transition: background-image 1s ease-in-out;
 `;
 
 const Overlay = styled.div`

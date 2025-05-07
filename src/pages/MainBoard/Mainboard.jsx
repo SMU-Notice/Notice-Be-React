@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { getSneakyToken } from "../../mocks/getSneakyToken"
 import {
   Container,
   Title,
@@ -34,22 +35,37 @@ const MainBoard = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get('/api/main/recent')
-    .then(response => {
-      if (response.data.success) {
-        setNotices(response.data.data);
-      } else {
-        console.error("데이터 오류:", response.data.error);
+    const fetchData = async () => {
+      const token = await getSneakyToken("abc@email.com");
+      if (!token) {
+        console.error("토큰이 없음, 데이터 못 불러옴");
+        return;
       }
-    })
-    .catch(error => {
-      console.error("API 호출 오류:", error);
-    });
+
+      axios.get("https://test.smu-notice.kr/api/main/recent", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
+      })
+      .then(response => {
+        if (response.data.success) {
+          setNotices(response.data.data);
+        } else {
+          console.error("데이터 오류:", response.data.error);
+        }
+      })
+      .catch(error => {
+        console.error("API 호출 오류:", error);
+      });
+    };
+  
+    fetchData();
   }, []);
 
   const goToBoard = (id) => {
     navigate(`/board/${id}`);
   };
+  
 
   return (
     <Container>
@@ -57,9 +73,9 @@ const MainBoard = () => {
       <NoticeList>
         {notices.map((notice) => (
           <NoticeItem key={notice.id} onClick={() => goToBoard(notice.id)}>
-            <Type noticeType={notice.category}>{siteNameMap[notice.category] || notice.category}</Type>
+            <Type noticeType={notice.boardName}>{siteNameMap[notice.boardName] || notice.boardName}</Type>
             <NoticeText>
-              <NoticeTitle type={notice.category}>{notice.title}</NoticeTitle>
+              <NoticeTitle type={notice.boardName}>[{notice.postType}]{notice.title}</NoticeTitle>
               <DateAndViews>
                 <CalendarIcon src={calendarIcon} alt="calendarIcon" />
                 {notice.postedDate}

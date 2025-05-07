@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import { getSneakyToken } from "../../mocks/getSneakyToken"
 import calendarIcon from "../../assets/calendar.svg";
 import viewIcon from "../../assets/viewIcon.svg";
 import searchIcon from "../../assets/search.svg";
@@ -8,31 +10,6 @@ import {
   Dropdown, Wrap, Line, NoticeList, NoticeItem, Site, NoticeText, DateAndViews,
   NoticeTitle, CalendarIcon, ViewIcon, SearchIcon as SearchIconImg
 } from "./MainBoardDetailStyle";
-
-// MOCK DATA
-const mockNotices = [
-  { post_id: 16, type: "상명", site: "통합공지",title: "KB국민카드 학생증 발급안내", posted_date: "2022-08-01", view_count: "1496452" },
-  { post_id: 6, type: "통합 게시판", site: "컴퓨터과학과",title: "수강신청 안내 및 강의시간표", posted_date: "2025-01-22", view_count: "183900" },
-  { post_id: 5, type: "학생 게시판", site: "컴퓨터과학과",title: "K-MOOC 학점인정 안내", posted_date: "2025-02-18", view_count: "75448" },
-  { post_id: 4, type: "학과", site: "통합공지",title: "잡플래닛, 에듀스 무료 이용 안내", posted_date: "2025-01-31", view_count: "70704" },
-  { post_id: 3, type: "상명", site: "대학일자리센터",title: "스마트출결시스템 사용 안내", posted_date: "2025-02-18", view_count: "48424" },
-  { post_id: 2, type: "상명", site: "SW중심대학사업단",title: "대학일자리플러스센터 리플렛", posted_date: "2025-02-17", view_count: "43435" },
-  { post_id: 8, type: "상명", site: "International Student",title: "취업계 안내", posted_date: "2025-02-18", view_count: "43262" },
-  { post_id: 9, type: "상명", site: "학생생활관",title: "KB국민카드 학생증 발급안내", posted_date: "2022-08-01", view_count: "1496452" },
-  { post_id: 10, type: "학과", site: "대학원",title: "수강신청 안내 및 강의시간표", posted_date: "2025-01-22", view_count: "183900" },
-  { post_id: 11, type: "상명", site: "공학교육인증센터",title: "K-MOOC 학점인정 안내", posted_date: "2025-02-18", view_count: "75448" },
-  { post_id: 12, type: "학생 게시판", site: "컴퓨터과학과",title: "잡플래닛, 에듀스 무료 이용 안내", posted_date: "2025-01-31", view_count: "70704" },
-  { post_id: 13, type: "상명", site: "학술정보관",title: "스마트출결시스템 사용 안내", posted_date: "2025-02-18", view_count: "48424" },
-  { post_id: 14, type: "상명", site: "대학일자리센터",title: "대학일자리플러스센터 리플렛", posted_date: "2025-02-17", view_count: "43435" },
-  { post_id: 15, type: "상명", site: "SW중심대학사업단",title: "취업계 안내", posted_date: "2025-02-18", view_count: "43262" },
-  { post_id: 7, type : "상명", site: "학생생활관", title: "[학생복지팀] 2022학년도 주거래은행 변경에 따른 KB국민카드 학생증 상시 발급안내", posted_date: "2022-08-01", view_count: "1,496,452"},
-  { post_id: 21, type : "학생 게시판", site: "컴퓨터과학과", title: "[학사운영팀] 2025학년도 제1학기 수강신청 안내 및 강의시간표 공지", posted_date: "2025-01-22", view_count: "183,900"},
-  { post_id: 20, type : "상명", site: "대학일자리센터", title: "[학사운영팀/교무팀] 2025학년도 제1학기 K-MOOC 학점인정 안내", posted_date: "2025-02-18", view_count: "75,448"},
-  { post_id: 19, type : "상명", site: "통합대학원공지", title: "[취업진로지원팀] 상명대학교 잡플래닛, 에듀스 무료 이용 안내", posted_date: "2025-01-31", view_count: "70,704"},
-  { post_id: 18, type : "상명", site: "SW중심대학사업단", title: "[교무처] 2025학년도 제1학기 스마트출결시스템 사용 및 출결관리 안내", posted_date: "2025-02-18", view_count: "48,424"},
-  { post_id: 17, type : "상명", site: "학술정보관", title: "[취업진로지원팀] 상명대 대학일자리플러스센터 리플렛", posted_date: "2025-02-17", view_count: "43,435"},
-  { post_id: 1, type : "상명", site: "대학원", title: "[학사운영팀] 2025학년도 제1학기 취업계 안내", posted_date: "2025-02-18", view_count: "43,262"}
-];
 
 const tabs = ['전체', '통합공지', '컴퓨터과학과', '학술정보관', '대학일자리센터', 'SW중심대학사업단', 'International Student', '학생생활관', '대학원', '공학교육인증센터'];
 
@@ -50,7 +27,7 @@ const siteNameMap = {
 
 const categoryOptionsMap = {
   전체: [],
-  통합공지: ["학과", "상명", "사회봉사"],
+  통합공지: ["글로벌", "진로취업", "등록/장학", "비교과", "일반"],
   컴퓨터과학과: ["학과 공지", "수강 신청 안내"],
   학술정보관: ["공지사항", "교육공지"],
   대학일자리센터: ["진로/취업프로그램 신청"],
@@ -61,45 +38,69 @@ const categoryOptionsMap = {
   공학교육인증센터: ["공지사항"],
 };
 
-// ... 생략된 import 구문 ...
-
 const MainBoardDetail = () => {
   const navigate = useNavigate();
 
+  const [notices, setNotices] = useState([]);
   const [activeTab, setActiveTab] = useState('전체');
-  const [search, setSearch] = useState(''); // 입력창 상태
-  const [submittedSearch, setSubmittedSearch] = useState(''); // 실제 검색어
-  const [category, setCategory] = useState('');
+  const [search, setSearch] = useState('');
+  const [submittedSearch, setSubmittedSearch] = useState('');
+  const [postType, setPostType] = useState('');
   const [startDate, setStartDate] = useState('2024-03-01');
   const [endDate, setEndDate] = useState('2026-02-28');
   const [page, setPage] = useState(1);
   const itemsPerPage = 8;
   const [filtered, setFiltered] = useState([]);
 
+  // 📌 API 호출
   useEffect(() => {
-    let result = [...mockNotices];
+    const fetchNotices = async () => {
+      const token = await getSneakyToken("abc@email.com");
+      if (!token) {
+        console.error("토큰이 없음, 데이터 못 불러옴");
+        return;
+      }
 
-    // 날짜 필터
-    result = result.filter(n => n.posted_date >= startDate && n.posted_date <= endDate);
+      try {
+        const res = await axios.get('https://test.smu-notice.kr/api/main/board', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          }
+        });
+        if (res.data.success) {
+          setNotices(res.data.data);
+          console.log(res.data.data);
+        } else {
+          console.error("데이터 응답 오류:", res.data.error);
+        }
+      } catch (err) {
+        console.error("API 호출 실패:", err);
+      }
+    };
+    fetchNotices();
+  }, []);
 
-    // 탭 필터
+  // 📌 필터링 로직
+  useEffect(() => {
+    let result = [...notices];
+
+    result = result.filter(n => n.postedDate >= startDate && n.postedDate <= endDate);
+
     if (activeTab !== '전체') {
-      result = result.filter(n => n.site === activeTab);
+      result = result.filter(n => n.boardName === activeTab);
     }
 
-    // 카테고리 필터
-    if (category) {
-      result = result.filter(n => n.type === category);
+    if (postType) {
+      result = result.filter(n => n.postType === postType);  // Changed from category to postType
     }
 
-    // 검색어 필터 (엔터 또는 아이콘 클릭 시 적용)
     if (submittedSearch) {
       result = result.filter(n => n.title.toLowerCase().includes(submittedSearch.toLowerCase()));
     }
 
     setFiltered(result);
     setPage(1);
-  }, [submittedSearch, category, startDate, endDate, activeTab]);
+  }, [notices, submittedSearch, postType, startDate, endDate, activeTab]);
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
@@ -117,20 +118,20 @@ const MainBoardDetail = () => {
     <Container>
       <Title>모든 공지</Title>
       <Content>
-      <Tabs>
-  {tabs.map((tab) => (
-    <Tab
-      key={tab}
-      active={tab === activeTab}
-      onClick={() => {
-        setActiveTab(tab);
-        setCategory(''); // 탭 변경 시 카테고리 초기화
-      }}
-    >
-      {tab}
-    </Tab>
-  ))}
-</Tabs>
+        <Tabs>
+          {tabs.map((tab) => (
+            <Tab
+              key={tab}
+              active={tab === activeTab}
+              onClick={() => {
+                setActiveTab(tab);
+                setPostType('');
+              }}
+            >
+              {tab}
+            </Tab>
+          ))}
+        </Tabs>
 
         <FilterRow>
           <label>
@@ -141,50 +142,53 @@ const MainBoardDetail = () => {
           </label>
 
           <Wrap>
-  <form onSubmit={handleSearchSubmit}>
-    <SearchBox>
-      <SearchInput
-        placeholder=" 검색어를 입력해 주세요."
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-      />
-      <button type="submit" style={{ background: "none", border: "none", padding: 0, cursor: "pointer" }}>
-        <SearchIconImg src={searchIcon} alt="search" />
-      </button>
-    </SearchBox>
-  </form>
+            <form onSubmit={handleSearchSubmit}>
+              <SearchBox>
+                <SearchInput
+                  placeholder=" 검색어를 입력해 주세요."
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                />
+                <button type="submit" style={{ background: "none", border: "none", padding: 0, cursor: "pointer" }}>
+                  <SearchIconImg src={searchIcon} alt="search" />
+                </button>
+              </SearchBox>
+            </form>
 
-  {/* 탭에 따른 드롭다운 카테고리 표시 */}
-  {categoryOptionsMap[activeTab]?.length > 0 && (
-    <Dropdown value={category} onChange={(e) => setCategory(e.target.value)}>
-      <option value="">카테고리 선택</option>
-      {categoryOptionsMap[activeTab].map((option) => (
-        <option key={option} value={option}>
-          {option}
-        </option>
-      ))}
-    </Dropdown>
-  )}
-</Wrap>
+            {categoryOptionsMap[activeTab]?.length > 0 && (
+              <Dropdown value={postType} onChange={(e) => setPostType(e.target.value)}>
+                <option value="">카테고리 선택</option>
+                {categoryOptionsMap[activeTab].map((option) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </Dropdown>
+            )}
+          </Wrap>
         </FilterRow>
 
         <Line />
 
         <NoticeList>
-          {paginated.map((notice, index) => (
-            <NoticeItem key={notice.post_id} onClick={() => goToBoard(notice.post_id)}>
-              <Site noticeType={notice.site}>
-                {siteNameMap[notice.site] || notice.site}
-              </Site>
-              <NoticeText>
-                <NoticeTitle first={index === 0}>[{notice.type}]{notice.title}</NoticeTitle>
-                <DateAndViews>
-                  <CalendarIcon src={calendarIcon} alt="calendar" />{notice.posted_date}
-                  <ViewIcon src={viewIcon} alt="view" />{notice.view_count}
-                </DateAndViews>
-              </NoticeText>
-            </NoticeItem>
-          ))}
+          {paginated.length === 0 ? (
+            <div style={{ padding: "2rem", textAlign: "center" }}>해당 조건에 맞는 공지가 없습니다.</div>
+          ) : (
+            paginated.map((notice, index) => (
+              <NoticeItem key={notice.id} onClick={() => goToBoard(notice.id)}>
+                <Site noticeType={notice.boardName}>
+                {siteNameMap[notice.site ?? notice.boardName] ?? notice.boardName}
+                </Site>
+                <NoticeText>
+                  <NoticeTitle first={index === 0}>[{notice.postType}]{notice.title}</NoticeTitle>
+                  <DateAndViews>
+                    <CalendarIcon src={calendarIcon} alt="calendar" />{notice.postedDate}
+                    <ViewIcon src={viewIcon} alt="view" />{notice.viewCount.toLocaleString()}
+                  </DateAndViews>
+                </NoticeText>
+              </NoticeItem>
+            ))
+          )}
         </NoticeList>
 
         {/* 페이지네이션 */}

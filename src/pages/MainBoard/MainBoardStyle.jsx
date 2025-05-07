@@ -61,19 +61,19 @@ const Type = styled.span`
     case "통합공지":
       return "#09144D"; // 네이비
     case "컴퓨터과학과":
-      return "#007B83"; // 블루그린
+      return "#91CE44"; // 블루그린
     case "학술정보관":
-      return "#3F51B5"; // 인디고
+      return "#00A2E5"; // 인디고
     case "대학일자리센터":
-      return "#9C27B0"; // 퍼플
+      return "#393a96"; // 퍼플
     case "SW중심대학사업단":
-      return "#4b99e0"; // 오렌지
+      return "#B51385"; // 오렌지
     case "International Student":
-      return "#388E3C"; // 다크그린
+      return "#EE334E"; // 다크그린
     case "학생생활관":
-      return "#C62828"; // 버건디
+      return "#F9A13A"; // 버건디
     case "대학원":
-      return "#2E7D32"; // 포레스트그린
+      return "#FFDF1C"; // 포레스트그린
     case "공학교육인증센터":
       return "#009688"; // 틸
   }
