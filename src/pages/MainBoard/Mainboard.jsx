@@ -75,7 +75,7 @@ const MainBoard = () => {
           <NoticeItem key={notice.id} onClick={() => goToBoard(notice.id)}>
             <Type noticeType={notice.boardName}>{siteNameMap[notice.boardName] || notice.boardName}</Type>
             <NoticeText>
-              <NoticeTitle type={notice.boardName}>[{notice.postType}]{notice.title}</NoticeTitle>
+              <NoticeTitle type={notice.boardName}>{notice.postType ? `[${notice.postType}]` : ''}{notice.title}</NoticeTitle>
               <DateAndViews>
                 <CalendarIcon src={calendarIcon} alt="calendarIcon" />
                 {notice.postedDate}

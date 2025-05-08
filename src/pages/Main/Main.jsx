@@ -17,7 +17,7 @@ const images = [bg, bg1, bg2, bg3, bg4, bg5, bg6];
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentBgIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 3000); // 3초마다 변경
+    }, 2800); // 2.8초마다 변경
     return () => clearInterval(interval); // cleanup
   }, []);
 

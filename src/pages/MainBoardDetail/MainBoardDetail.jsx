@@ -180,7 +180,7 @@ const MainBoardDetail = () => {
                 {siteNameMap[notice.site ?? notice.boardName] ?? notice.boardName}
                 </Site>
                 <NoticeText>
-                  <NoticeTitle first={index === 0}>[{notice.postType}]{notice.title}</NoticeTitle>
+                  <NoticeTitle first={index === 0}>{notice.postType ? `[${notice.postType}]` : ''}{notice.title}</NoticeTitle>
                   <DateAndViews>
                     <CalendarIcon src={calendarIcon} alt="calendar" />{notice.postedDate}
                     <ViewIcon src={viewIcon} alt="view" />{notice.viewCount.toLocaleString()}
