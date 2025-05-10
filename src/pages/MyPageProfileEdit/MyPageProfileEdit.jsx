@@ -62,8 +62,8 @@ export const MyPageProfileEdit = () => {
         </nav>
       </aside>
       {/* 메인 영역 */}
-      <div style={{ flex: 1, padding: '40px' }}>
-        <h2 style={{ marginBottom: '24px' }}>메일 관리</h2>
+      <div className="main">
+        <h2 className="title">메일 관리</h2>
 
         {/* 선택된 카테고리 */}
         <div style={{ marginBottom: '30px' }}>

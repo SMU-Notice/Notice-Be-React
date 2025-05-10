@@ -3,6 +3,9 @@
   font-size: 48px;
   margin-bottom: 24px;
 }
+.main{
+  margin-bottom: 60px;
+}
 /* 전체 레이아웃 */
 .profileedit-container {
     display: flex;

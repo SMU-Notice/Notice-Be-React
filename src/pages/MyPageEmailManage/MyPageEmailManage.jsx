@@ -31,13 +31,17 @@ const MyPageEmailManage = () => {
         </nav>
       </aside>
       <div className="main">
-        <h1 className="title">회원 정보</h1>
-        <CheckID />
-        <div>
+        <h1 className="title section">회원 정보</h1>
+        <div className="section">
+          <CheckID />
+        </div>
+        <div className="section">
         <h2 style={{fontSize: '16px'}}>메일 수정하기</h2>
         <EmailInput />
         </div>
-        <MajorSelect />
+        <div className="section">
+          <MajorSelect />
+        </div>
       </div>
     </div>
   );
