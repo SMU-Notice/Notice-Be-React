@@ -43,6 +43,7 @@ const Board = () => {
 
         if (response.data.success) {
           setNotice(response.data.data);
+          console.log(response.data.data);
         } else {
           console.error("데이터 오류:", response.data.error);
         }
@@ -61,7 +62,7 @@ const Board = () => {
       <Title>
         모든공지
         <VerticalDivider />
-        <Site>{notice.site}</Site>
+        <Site>{notice.name}</Site>
       </Title>
       <Line />
       <NoticeContainer>
