@@ -77,15 +77,15 @@ const router = createBrowserRouter([
             element: <SignUp/>
         },
         {
-            path: 'api/auth/login/kakao',
+            path: 'auth/kakao',
             element: <AuthKakao />
         },
         {
-            path: 'api/auth/login/naver',
+            path: 'auth/naver',
             element: <AuthNaver />
         },
         {
-            path: 'api/auth/login/google',
+            path: 'auth/google',
             element: <AuthGoogle />
         },
         {

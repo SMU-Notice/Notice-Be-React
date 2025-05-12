@@ -5,8 +5,9 @@ const AuthKakao = () => {
     const location = useLocation();
 
     useEffect(() => {
-        const searchParams = new URLSearchParams(location.search);
-        const accessToken = searchParams.get("code");
+        // location.hash: "#access_token=..."
+        const searchParams = new URLSearchParams(location.search); // '?' 포함한 쿼리 파싱
+        const accessToken = searchParams.get("code"); // 인가 코드 추출
         const provider = "kakao";
 
         if (accessToken) {

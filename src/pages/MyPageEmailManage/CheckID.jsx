@@ -13,7 +13,7 @@ export const CheckID = () => {
   
     if (kakaoToken) {
       return <div style={textStyle}>로그인 된 소셜 계정 카카오</div>;
-    } else if (!naverToken) {
+    } else if (naverToken) {
       return <div style={textStyle}>로그인 된 소셜 계정 
       <img
         src={naverLoginImg}

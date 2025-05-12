@@ -68,7 +68,7 @@ export const MyPageProfileEdit = () => {
         {/* 선택된 카테고리 */}
         <div style={{ marginBottom: '30px' }}>
           <h4>선택된 카테고리</h4>
-          <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginTop: '10px' }}>
+          <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginTop: '10px', marginBottom: '100px' }}>
             {selectedPairs.map((pair) => (
               <div
                 key={pair}
@@ -76,7 +76,7 @@ export const MyPageProfileEdit = () => {
                   background: '#1b1d4d',
                   color: 'white',
                   padding: '6px 12px',
-                  borderRadius: '20px',
+                  borderRadius: '8px',
                   display: 'flex',
                   alignItems: 'center',
                   gap: '8px',
@@ -113,7 +113,7 @@ export const MyPageProfileEdit = () => {
                   backgroundColor: selectedTop === cat ? '#1b1d4d' : '#ccc',
                   color: selectedTop === cat ? 'white' : '#333',
                   border: 'none',
-                  borderRadius: '20px',
+                  borderRadius: '8px',
                   cursor: 'pointer',
                 }}
               >
@@ -132,7 +132,7 @@ export const MyPageProfileEdit = () => {
                   backgroundColor: selectedBottom === cat ? '#1b1d4d' : '#ccc',
                   color: selectedBottom === cat ? 'white' : '#333',
                   border: 'none',
-                  borderRadius: '20px',
+                  borderRadius: '8px',
                   cursor: 'pointer',
                 }}
               >

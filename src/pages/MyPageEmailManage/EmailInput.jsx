@@ -15,7 +15,6 @@ export const EmailInput = () => {
       alert("유효한 이메일을 입력해주세요.");
       return;
     }
-
     // 이메일 인증 요청 보내기
     try {
       const res = await fetch("https://test.smu-notice.kr/api/email/verification/send", {

@@ -5,22 +5,21 @@ const AuthGoogle = () => {
     const location = useLocation();
 
     useEffect(() => {
-        // location.hash: "#access_token=..."
-        const hashParams = new URLSearchParams(location.hash.substring(1)); // '#' 제거 후 파싱
-        const accessToken = hashParams.get("access_token");
+        const queryParams = new URLSearchParams(location.search);
+        const code = queryParams.get("code");
         const provider = "google";
-
-        if (accessToken) {
-            getToken(accessToken);
+    
+        if (code) {
+            getToken(code);
         } else {
-            console.error("❌ 구글 access_token이 없습니다.");
+            console.error("❌ 구글 인가 코드(code)가 없습니다.");
         }
 
         async function getToken(token) {
             try {
                 console.log("🟢 Backend에 access token 전달 중:", token);
 
-                const response = await fetch(`https://test.smu-notice.kr/api/auth/login/${provider}?code=${encodeURIComponent(token)}`, {
+                const response = await fetch(`https://test.smu-notice.kr/api/auth/login/google?code=${encodeURIComponent(token)}`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
