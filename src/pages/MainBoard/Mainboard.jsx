@@ -34,6 +34,11 @@ const MainBoard = () => {
   const [notices, setNotices] = useState([]);
   const navigate = useNavigate();
 
+  const token =
+  localStorage.getItem("kakaoToken") ||
+  localStorage.getItem("naverToken") ||
+  localStorage.getItem("googleToken");
+
   useEffect(() => {
     const fetchData = async () => {
       const token = await getSneakyToken("abc@email.com");

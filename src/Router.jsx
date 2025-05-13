@@ -19,7 +19,6 @@ import {
   AuthKakao,
   AuthNaver,
   AuthGoogle,
-  BookMarkPage
 } from "./pages";
 
 const router = createBrowserRouter([
@@ -87,10 +86,6 @@ const router = createBrowserRouter([
         {
             path: 'auth/google',
             element: <AuthGoogle />
-        },
-        {
-            path: 'bookmark',
-            element: <BookMarkPage />
         }
     ]
   },

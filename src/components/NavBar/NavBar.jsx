@@ -7,8 +7,8 @@ const Navbar = () => {
     const goToMain = () => {
         navigate('/');
     };
-    const goToMypage = () => {
-        navigate('/Mypage');
+    const goToMyPageBookMark = () => {
+        navigate('/MyPageBookMark');
       };
       const goToLogin = () => {
         navigate('/Login');
@@ -21,7 +21,7 @@ const Navbar = () => {
           SMU NOTICE
         </NavibarTitle>
         <div>
-          <NavButton onClick={goToMypage}>마이페이지</NavButton>
+          <NavButton onClick={goToMyPageBookMark}>마이페이지</NavButton>
           <NavButton onClick={goToLogin}>로그인</NavButton>
         </div>
       </Navibar>
