@@ -46,7 +46,7 @@ const NoticeItem = styled.div`
 const Rank = styled.span`
   display: inline-flex;
   justify-content: center;
-  align-items: center; 
+  align-items: center;
   font-size: ${(props) => (props.first ? "20px" : "15px")};
   font-weight: bold;
   background-color: ${(props) => (props.first ? "gold" : "#09144D")};
@@ -56,7 +56,7 @@ const Rank = styled.span`
   height: ${(props) => (props.first ? "25px" : "20px")};
   color: white;
   border-radius: 50%;
-  text-align: center;  
+  text-align: center;
 `;
 
 const NoticeText = styled.div`

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { getSneakyToken } from "../../mocks/getSneakyToken";
+import { useNavigate } from "react-router-dom";
 import {
   Container,
   Title,
@@ -17,23 +17,27 @@ import {
   NoticeContent,
   NoticeOrigin,
   NextNotice,
-  BeforeNotice
+  NextNoticeTitle,
+  BeforeNotice,
+  BeforeNoticeTitle,
+  StyledBookMarkIcon
 } from "./BoardStyle";
 import calendarIcon from "../../assets/calendar.svg";
 import viewIcon from "../../assets/viewIcon.svg";
+import { PostedTodayIcon } from '../MainBoard/MainBoardStyle';
 
 const Board = () => {
   const [notice, setNotice] = useState(null);
   const { postId } = useParams();
+  const navigate = useNavigate();
+
+  const token =
+  localStorage.getItem("kakaoToken") ||
+  localStorage.getItem("naverToken") ||
+  localStorage.getItem("googleToken");
 
   useEffect(() => {
     const fetchData = async () => {
-      const token = await getSneakyToken("abc@email.com");
-      if (!token) {
-        console.error("토큰이 없음, 데이터 못 불러옴");
-        return;
-      }
-
       try {
         const response = await axios.get(`https://test.smu-notice.kr/api/main/posts/${postId}`, {
           headers: {
@@ -55,6 +59,10 @@ const Board = () => {
     fetchData();
   }, [postId]);
 
+  const goToBoard = (id) => {
+    navigate(`/board/${id}`);
+  };
+
   if (!notice) return <p>존재하지 않는 게시글입니다.</p>;
 
   return (
@@ -70,6 +78,7 @@ const Board = () => {
         <DateAndViews>
           <CalendarIcon src={calendarIcon} alt="calendar" />{notice.postedDate}
           <ViewIcon src={viewIcon} alt="view" />{notice.viewCount}
+          <StyledBookMarkIcon isBookmarked={notice.isBookmarked} />
         </DateAndViews>
         <SubLine />
         <NoticeContent>{notice.contentSummary}</NoticeContent>
@@ -78,9 +87,15 @@ const Board = () => {
         </NoticeOrigin>
       </NoticeContainer>
       <Line />
-      <BeforeNotice>이전글</BeforeNotice>
+      <BeforeNotice>
+        이전글
+        {notice.previousPostTitle && (<BeforeNoticeTitle key={notice.previousPostId} onClick={() => goToBoard(notice.previousPostId)}>{notice.previousPostTitle}</BeforeNoticeTitle>)}
+      </BeforeNotice>
       <SubLine />
-      <NextNotice>다음글</NextNotice>
+      <NextNotice>
+        다음글
+        {notice.nextPostTitle && (<NextNoticeTitle key={notice.nextPostId} onClick={() => goToBoard(notice.nextPostId)}>{notice.nextPostTitle}</NextNoticeTitle>)}
+      </NextNotice>
       <SubLine />
     </Container>
   );

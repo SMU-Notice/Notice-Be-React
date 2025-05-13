@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
-import { getSneakyToken } from "../../mocks/getSneakyToken"
 import calendarIcon from "../../assets/calendar.svg";
 import viewIcon from "../../assets/viewIcon.svg";
 import searchIcon from "../../assets/search.svg";
+import postedTodayIcon from "../../assets/postedtodayicon.svg"
 import {
   Container, Title, Content, Tabs, Tab, FilterRow, DateInput, SearchBox, SearchInput,
   Dropdown, Wrap, Line, NoticeList, NoticeItem, Site, NoticeText, DateAndViews,
-  NoticeTitle, CalendarIcon, ViewIcon, SearchIcon as SearchIconImg
+  NoticeTitle, CalendarIcon, ViewIcon, SearchIcon as SearchIconImg, PostedTodayIcon, StyledBookMarkIcon
 } from "./MainBoardDetailStyle";
 
 const tabs = ['전체', '통합공지', '컴퓨터과학과', '학술정보관', '대학일자리센터', 'SW중심대학사업단', 'International Student', '학생생활관', '대학원', '공학교육인증센터'];
@@ -52,15 +52,14 @@ const MainBoardDetail = () => {
   const itemsPerPage = 8;
   const [filtered, setFiltered] = useState([]);
 
+  const token =
+  localStorage.getItem("kakaoToken") ||
+  localStorage.getItem("naverToken") ||
+  localStorage.getItem("googleToken");
+
   // 📌 API 호출
   useEffect(() => {
     const fetchNotices = async () => {
-      const token = await getSneakyToken("abc@email.com");
-      if (!token) {
-        console.error("토큰이 없음, 데이터 못 불러옴");
-        return;
-      }
-
       try {
         const res = await axios.get('https://test.smu-notice.kr/api/main/board', {
           headers: {
@@ -78,7 +77,7 @@ const MainBoardDetail = () => {
       }
     };
     fetchNotices();
-  }, []);
+  }, [token]);
 
   // 📌 필터링 로직
   useEffect(() => {
@@ -180,10 +179,14 @@ const MainBoardDetail = () => {
                 {siteNameMap[notice.site ?? notice.boardName] ?? notice.boardName}
                 </Site>
                 <NoticeText>
-                  <NoticeTitle first={index === 0}>{notice.postType ? `[${notice.postType}]` : ''}{notice.title}</NoticeTitle>
+                  <NoticeTitle first={index === 0}>
+                    {notice.postType ? `[${notice.postType}]` : ''}{notice.title}
+                    {notice.isPostedToday && (<PostedTodayIcon src={postedTodayIcon} alt="postedTodayIcon" />)}
+                  </NoticeTitle>
                   <DateAndViews>
                     <CalendarIcon src={calendarIcon} alt="calendar" />{notice.postedDate}
                     <ViewIcon src={viewIcon} alt="view" />{notice.viewCount.toLocaleString()}
+                    <StyledBookMarkIcon isBookmarked={notice.isBookmarked} />
                   </DateAndViews>
                 </NoticeText>
               </NoticeItem>

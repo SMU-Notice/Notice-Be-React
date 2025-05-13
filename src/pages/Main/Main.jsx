@@ -31,7 +31,7 @@ const Main = ({
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentBgIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 2800);
+    }, 3000);
     return () => clearInterval(interval);
   }, []);
 

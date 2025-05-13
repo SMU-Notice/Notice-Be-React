@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import BookMarkIcon from '../../assets/bookmark.svg?react';
 
 const Container = styled.div`
   display: flex;
@@ -109,4 +110,17 @@ const ViewIcon = styled.img`
   margin-left: 8px;
 `
 
-export {Container, Title, NoticeList, NoticeItem, Type, NoticeText, DateAndViews, NoticeTitle, CalendarIcon, ViewIcon};
+const PostedTodayIcon = styled.img`
+  margin-left: 3px;
+  width: 12px;
+  height: 12px;
+`
+const StyledBookMarkIcon = styled(BookMarkIcon)`
+  fill: ${({ isBookmarked }) => (isBookmarked ? 'red' : '#ccc')};
+  width: 11px;
+  height: 11px;
+  margin-right: 2px;
+  margin-left: 8px;
+`;
+
+export {Container, Title, NoticeList, NoticeItem, Type, NoticeText, DateAndViews, NoticeTitle, CalendarIcon, ViewIcon, PostedTodayIcon, StyledBookMarkIcon};
