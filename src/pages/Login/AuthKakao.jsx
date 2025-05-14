@@ -36,7 +36,7 @@ const AuthKakao = () => {
 
                 localStorage.setItem("kakaoToken", data.data);
 
-                window.location.href = "/";
+                window.location.href = "/mainpage";
             } catch (error) {
                 console.error("❌ 토큰 요청 오류:", error);
             }
