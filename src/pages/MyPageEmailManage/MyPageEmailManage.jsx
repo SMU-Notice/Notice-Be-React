@@ -8,7 +8,7 @@ import { EmailInput }from "./EmailInput"
 const MyPageEmailManage = () => {
   const navigate = useNavigate();
   const goToBookmark = () => {
-    navigate('/MyPageBookmark');
+    navigate('/MyPageBookMark');
   };
   const goToEmailManage = () => {
     navigate('/MyPageEmailManage');

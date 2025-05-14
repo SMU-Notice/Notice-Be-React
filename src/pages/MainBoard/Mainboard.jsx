@@ -1,22 +1,27 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { getSneakyToken } from "../../mocks/getSneakyToken"
 import {
   Container,
+  TitleWrapper,
   Title,
+  MoreButton,
   NoticeList,
   NoticeItem,
   Type,
   NoticeText,
   DateAndViews,
-  NoticeTitle,
+  NoticeTitleText,
+  NoticeTitleWrapper,
   CalendarIcon,
   ViewIcon,
+  PostedTodayIcon,
+  StyledBookMarkIcon
 } from "./MainBoardStyle";
 
 import calendarIcon from "../../assets/calendar.svg";
 import viewIcon from "../../assets/viewIcon.svg";
+import postedTodayIcon from "../../assets/postedtodayicon.svg"
 
 const siteNameMap = {
   '통합공지': '통합',
@@ -34,8 +39,14 @@ const MainBoard = () => {
   const [notices, setNotices] = useState([]);
   const navigate = useNavigate();
 
+  const token =
+  localStorage.getItem("kakaoToken") ||
+  localStorage.getItem("naverToken") ||
+  localStorage.getItem("googleToken");
+
   useEffect(() => {
     const fetchData = async () => {
+<<<<<<< HEAD
       const token = localStorage.getItem('googleToken');
       if (!token) {
         console.error("토큰이 없음, 데이터 못 불러옴");
@@ -48,39 +59,64 @@ const MainBoard = () => {
         }
       })
       .then(response => {
+=======
+      try {
+        const response = await axios.get("https://test.smu-notice.kr/api/main/recent", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          }
+        });
+  
+>>>>>>> 1fdb673e7d88bc37c5bd0be856e3e418f0dba3ed
         if (response.data.success) {
           setNotices(response.data.data);
+          console.log(response.data.data);
         } else {
           console.error("데이터 오류:", response.data.error);
         }
-      })
-      .catch(error => {
+      } catch (error) {
         console.error("API 호출 오류:", error);
-      });
+      }
     };
   
     fetchData();
-  }, []);
+  }, [token]);
+  
 
   const goToBoard = (id) => {
     navigate(`/board/${id}`);
   };
-  
+
+  const goToMainBoardDetail = () => {
+    navigate(`/MainBoardDetail`);
+  };
+
 
   return (
     <Container>
-      <Title>모든 공지</Title>
+      <TitleWrapper>
+        <div style={{ width: "70px" }} /> {/* 왼쪽 공간 맞춤용 */}
+        <Title>모든 공지</Title>
+        <MoreButton onClick={goToMainBoardDetail}>더보기</MoreButton>
+      </TitleWrapper>
       <NoticeList>
         {notices.map((notice) => (
           <NoticeItem key={notice.id} onClick={() => goToBoard(notice.id)}>
             <Type noticeType={notice.boardName}>{siteNameMap[notice.boardName] || notice.boardName}</Type>
             <NoticeText>
-              <NoticeTitle type={notice.boardName}>{notice.postType ? `[${notice.postType}]` : ''}{notice.title}</NoticeTitle>
+            <NoticeTitleWrapper>
+            <NoticeTitleText>
+            {notice.postType ? `[${notice.postType}]` : ''}{notice.title}
+            </NoticeTitleText>
+            {notice.isPostedToday && (
+            <PostedTodayIcon src={postedTodayIcon} alt="postedTodayIcon" />)}
+            </NoticeTitleWrapper>
               <DateAndViews>
                 <CalendarIcon src={calendarIcon} alt="calendarIcon" />
                 {notice.postedDate}
                 <ViewIcon src={viewIcon} alt="viewIcon" />
                 {Number(notice.viewCount).toLocaleString()}
+                <StyledBookMarkIcon isBookmarked={notice.isBookmarked} />
               </DateAndViews>
             </NoticeText>
           </NoticeItem>

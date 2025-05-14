@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import BookMarkIcon from '../../assets/bookmark.svg?react';
 
 const Container = styled.div`
   max-width: 70%;
@@ -80,15 +81,44 @@ const NoticeOrigin = styled.a`
 `;
 
 const NextNotice = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 12px;
   margin-top: 1rem;
   font-weight: bold;
   font-size: 15px;
 `;
 
 const BeforeNotice = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 12px;
   margin-top: 2rem;
   font-weight: bold;
   font-size: 15px;
 `;
 
-export {Container, Title, VerticalDivider, Site, Line, SubLine, NoticeContainer, NoticeTitle, DateAndViews, CalendarIcon, ViewIcon, NoticeContent, NoticeOrigin, NextNotice, BeforeNotice};
+const StyledBookMarkIcon = styled(BookMarkIcon)`
+  fill: ${({ isBookmarked }) => (isBookmarked ? 'red' : '#ccc')};
+  width: 17px;
+  height: 17px;
+  margin-right: 2px;
+  margin-left: 8px;
+`;
+
+const BeforeNoticeTitle = styled.div`
+  transition: font-size 0.2s ease-in-out;
+  &:hover {
+    font-size: 15.5px;
+  }
+`
+
+const NextNoticeTitle = styled.div`
+  transition: font-size 0.2s ease-in-out;
+  &:hover {
+    font-size: 15.5px;
+  }
+`
+
+
+export {Container, Title, VerticalDivider, Site, Line, SubLine, NoticeContainer, NoticeTitle, DateAndViews, CalendarIcon, ViewIcon, NoticeContent, NoticeOrigin, NextNotice, BeforeNotice, StyledBookMarkIcon, NextNoticeTitle, BeforeNoticeTitle};

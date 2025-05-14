@@ -17,7 +17,6 @@ export { default as AuthNaver } from "./Login/AuthNaver.jsx";
 export { default as AuthGoogle } from "./Login/AuthGoogle.jsx";
 export { default as SocialLoginPage } from "./Login/SocialLoginPage.jsx";
 export { default as AuthKakaoLogout } from "./Login/AuthKakaoLogout.jsx";
-export { default as BookMarkPage } from "./MyPageBookMark/BookMarkPage.jsx";
 export { default as CheckID } from "./MyPageEmailManage/CheckID.jsx";
 export { default as MajorSelect } from "./MyPageEmailManage/MajorSelect.jsx";
 export { default as EmailInput } from "./MyPageEmailManage/EmailInput.jsx";

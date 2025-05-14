@@ -1,6 +1,15 @@
 import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import { Container, Background, Content, Overlay, Description, StartButton, Navbar, NavButton, SmuNoticeIcon} from './MainStyle';
+import PropTypes from "prop-types";
+
+import {
+  Container,
+  Background,
+  Content,
+  Overlay,
+  Description,
+  StartButton,
+} from './MainStyle';
 
 import bg from "../../assets/backgroundimg.svg";
 import bg1 from "../../assets/backgroundimg1.svg";
@@ -12,18 +21,23 @@ import bg6 from "../../assets/backgroundimg6.svg";
 
 const images = [bg, bg1, bg2, bg3, bg4, bg5, bg6];
 
- const Main = () => {
+const Main = ({
+  buttonText = "시작하기",
+  navigateTo = "/Login",
+  descriptionText = `상명대학교 관련 여러 사이트의 공지사항을 한 번에 보고\n관심 있는 글에 대한 메일 알림도 받아볼 수 있습니다.`
+}) => {
   const [currentBgIndex, setCurrentBgIndex] = useState(0);
+
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentBgIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 2800); // 2.8초마다 변경
-    return () => clearInterval(interval); // cleanup
+    }, 3000);
+    return () => clearInterval(interval);
   }, []);
 
   const navigate = useNavigate();
-  const goToLogin = () => {
-    navigate('/Login');
+  const handleButtonClick = () => {
+    navigate(navigateTo);
   };
 
   return (
@@ -32,13 +46,23 @@ const images = [bg, bg1, bg2, bg3, bg4, bg5, bg6];
       <Background image={images[currentBgIndex]} />
       <Content>
         <Description>
-          상명대학교 통합공지와 학과공지를 한 번에 보고
-          <br /> 관심 있는 글에 대한 메일 알림도 받아볼 수 있습니다.
+          {descriptionText.split('\n').map((line, index) => (
+            <React.Fragment key={index}>
+              {line}
+              <br />
+            </React.Fragment>
+          ))}
         </Description>
-        <StartButton onClick={goToLogin}>시작하기</StartButton>
+        <StartButton onClick={handleButtonClick}>{buttonText}</StartButton>
       </Content>
     </Container>
   );
-  };
+};
+
+Main.propTypes = {
+  buttonText: PropTypes.string,
+  navigateTo: PropTypes.string,
+  descriptionText: PropTypes.string,
+};
 
 export default Main;
