@@ -67,7 +67,6 @@ const MainBoard = () => {
           }
         });
   
->>>>>>> 1fdb673e7d88bc37c5bd0be856e3e418f0dba3ed
         if (response.data.success) {
           setNotices(response.data.data);
           console.log(response.data.data);
