@@ -42,7 +42,7 @@ const Board = () => {
         const response = await axios.get(`https://test.smu-notice.kr/api/main/posts/${postId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
-          }
+          }  
         });
 
         if (response.data.success) {
