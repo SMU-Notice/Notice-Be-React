@@ -57,7 +57,7 @@ const router = createBrowserRouter([
         },
         {
             path: 'MyPageBookMark',
-            element: <BookMarkPage/>
+            element: <MyPageBookMark/>
         },
         {
             path: 'MyPageProfileEdit',
