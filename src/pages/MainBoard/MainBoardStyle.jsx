@@ -11,14 +11,39 @@ const Container = styled.div`
   height: 100vh;
 `;
 
+const TitleWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding: 0 12px;
+`;
+
 const Title = styled.h1`
   font-size: 35px;
   font-weight: bold;
-  margin-bottom: 20px;
   margin-top: 25px;
-  text-align: center;
+  margin-bottom: 20px;
   color: #09144D;
+  flex: 1;
+  text-align: center;
 `;
+
+const MoreButton = styled.button`
+  background: #09144D;
+  border: none;
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 20%;
+  margin-top: 10px;
+  margin-left: 30px;
+  height: 30px;
+  width: 50px;
+  white-space: nowrap;
+`;
+
 
 const NoticeList = styled.div`
   width: 60%;
@@ -52,6 +77,7 @@ const Type = styled.span`
   font-weight: bold;
   margin-right: 10px;
   margin-left: 10px;
+  min-width: 20px;
   width: ${(props) => (props.first ? "25px" : "20px")};
   height: ${(props) => (props.first ? "25px" : "20px")};
   color: white;
@@ -90,10 +116,19 @@ const DateAndViews = styled.div`
   color: #777;
 `;
 
-const NoticeTitle = styled.div`
+const NoticeTitleWrapper = styled.div`
+  display: flex;
+  justify-content: flex-start;
+`;
+
+const NoticeTitleText = styled.div`
   font-size: ${(props) => (props.first ? "20px" : "15px")};
   font-weight: ${(props) => (props.first ? "bold" : "")};
   margin-bottom: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 80%;  
 `
 
 const CalendarIcon = styled.img`
@@ -112,6 +147,7 @@ const ViewIcon = styled.img`
 
 const PostedTodayIcon = styled.img`
   margin-left: 3px;
+  margin-top: 2px;
   width: 12px;
   height: 12px;
 `
@@ -123,4 +159,4 @@ const StyledBookMarkIcon = styled(BookMarkIcon)`
   margin-left: 8px;
 `;
 
-export {Container, Title, NoticeList, NoticeItem, Type, NoticeText, DateAndViews, NoticeTitle, CalendarIcon, ViewIcon, PostedTodayIcon, StyledBookMarkIcon};
+export {Container, TitleWrapper, Title, MoreButton, NoticeList, NoticeItem, Type, NoticeText, DateAndViews, NoticeTitleWrapper, NoticeTitleText, CalendarIcon, ViewIcon, PostedTodayIcon, StyledBookMarkIcon};
