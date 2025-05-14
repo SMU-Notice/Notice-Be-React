@@ -36,7 +36,7 @@ const MainBoard = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const token = await getSneakyToken("abc@email.com");
+      const token = localStorage.getItem('googleToken');
       if (!token) {
         console.error("토큰이 없음, 데이터 못 불러옴");
         return;

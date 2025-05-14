@@ -137,10 +137,7 @@ const BookMarkPage = () => {
   const [folderContents, setFolderContents] = useState({});
   const [isClosing, setIsClosing] = useState(false);
 
-  const token =
-  localStorage.getItem("kakaoToken") ||
-  localStorage.getItem("naverToken") ||
-  localStorage.getItem("googleToken");
+  const token =localStorage.getItem("googleToken");
 
   const fetchFolders = async () => {
     try {

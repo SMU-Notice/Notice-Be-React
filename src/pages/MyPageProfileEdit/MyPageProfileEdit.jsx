@@ -8,7 +8,7 @@ const bottomCategories = ['전체', '학사', '일반', '사회봉사', '등록�
 export const MyPageProfileEdit = () => {
   const navigate = useNavigate();
   const goToBookmark = () => {
-    navigate('/bookmark');
+    navigate('/MyPageBookmark');
   };
   const goToProfileEdit = () => {
     navigate('/MyPageProfileEdit');

@@ -1,14 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import "./MyPageEmailManage.css";
 import { CheckID }from "./CheckID";
-import { MajorSelect }from "./MajorSelect";
+import MajorSelect from "./MajorSelect";
 import { EmailInput }from "./EmailInput"
 //import React, { useState } from 'react';
 
 const MyPageEmailManage = () => {
   const navigate = useNavigate();
   const goToBookmark = () => {
-    navigate('/bookmark');
+    navigate('/MyPageBookmark');
   };
   const goToEmailManage = () => {
     navigate('/MyPageEmailManage');

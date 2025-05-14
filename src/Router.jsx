@@ -58,7 +58,7 @@ const router = createBrowserRouter([
         },
         {
             path: 'MyPageBookMark',
-            element: <MyPageBookMark/>
+            element: <BookMarkPage/>
         },
         {
             path: 'MyPageProfileEdit',
@@ -87,10 +87,6 @@ const router = createBrowserRouter([
         {
             path: 'auth/google',
             element: <AuthGoogle />
-        },
-        {
-            path: 'bookmark',
-            element: <BookMarkPage />
         }
     ]
   },
