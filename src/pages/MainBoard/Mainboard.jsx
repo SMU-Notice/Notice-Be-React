@@ -52,7 +52,7 @@ const MainBoard = () => {
             Authorization: `Bearer ${token}`,
           }
         });
-  
+
         if (response.data.success) {
           setNotices(response.data.data);
           console.log(response.data.data);
