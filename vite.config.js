@@ -11,7 +11,7 @@ export default defineConfig({
         target: 'https://test.smu-notice.kr',
         changeOrigin: true,
         secure: false,
-        rewrite: (path) => path.replace(/^\/api/, ''),
+        //rewrite: (path) => path.replace(/^\/api/, ''),
       },
     },
   },

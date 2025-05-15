@@ -144,7 +144,7 @@ const MyPageBookMark = () => {
 
   const fetchFolders = async () => {
     try {
-      const res = await fetch("/api/mypage/bookmark/", {
+      const res = await fetch("/api/mypage/bookmark", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -161,13 +161,13 @@ const MyPageBookMark = () => {
     if (!name || name.trim() === "") return;
 
     try {
-      const res = await fetch("/api/mypage/bookmark/", {
+      const res = await fetch("/api/mypage/bookmark", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ name: name.trim() }),
+        //body: JSON.stringify({ name: name.trim() }),
       });
       const result = await res.json();
       if (result.success) setFolders((prev) => [...prev, result.data]);
