@@ -11,7 +11,7 @@ export const CheckID = () => {
       color: '#333',                      
     };
   
-    if (!kakaoToken) {
+    if (kakaoToken) {
       return <div style={textStyle}>로그인 된 소셜 계정
       <img
         src={kakaoLoginImg}
