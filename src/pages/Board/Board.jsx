@@ -19,12 +19,11 @@ import {
   NextNotice,
   NextNoticeTitle,
   BeforeNotice,
-  BeforeNoticeTitle,
-  StyledBookMarkIcon
+  BeforeNoticeTitle
 } from "./BoardStyle";
+import BookMarkIcon from '../../components/BookMarkIcon/BookMarkIcon';
 import calendarIcon from "../../assets/calendar.svg";
 import viewIcon from "../../assets/viewIcon.svg";
-import { PostedTodayIcon } from '../MainBoard/MainBoardStyle';
 
 const Board = () => {
   const [notice, setNotice] = useState(null);
@@ -78,7 +77,7 @@ const Board = () => {
         <DateAndViews>
           <CalendarIcon src={calendarIcon} alt="calendar" />{notice.postedDate}
           <ViewIcon src={viewIcon} alt="view" />{notice.viewCount}
-          <StyledBookMarkIcon isBookmarked={notice.isBookmarked} />
+          <BookMarkIcon isBookmarked = {notice.isBookmarked} postId={notice.postId}/>
         </DateAndViews>
         <SubLine />
         <NoticeContent>{notice.contentSummary}</NoticeContent>

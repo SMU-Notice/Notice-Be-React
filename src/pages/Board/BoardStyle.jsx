@@ -98,14 +98,6 @@ const BeforeNotice = styled.div`
   font-size: 15px;
 `;
 
-const StyledBookMarkIcon = styled(BookMarkIcon)`
-  fill: ${({ isBookmarked }) => (isBookmarked ? 'red' : '#ccc')};
-  width: 17px;
-  height: 17px;
-  margin-right: 2px;
-  margin-left: 8px;
-`;
-
 const BeforeNoticeTitle = styled.div`
   transition: font-size 0.2s ease-in-out;
   &:hover {
@@ -121,4 +113,4 @@ const NextNoticeTitle = styled.div`
 `
 
 
-export {Container, Title, VerticalDivider, Site, Line, SubLine, NoticeContainer, NoticeTitle, DateAndViews, CalendarIcon, ViewIcon, NoticeContent, NoticeOrigin, NextNotice, BeforeNotice, StyledBookMarkIcon, NextNoticeTitle, BeforeNoticeTitle};
+export {Container, Title, VerticalDivider, Site, Line, SubLine, NoticeContainer, NoticeTitle, DateAndViews, CalendarIcon, ViewIcon, NoticeContent, NoticeOrigin, NextNotice, BeforeNotice, NextNoticeTitle, BeforeNoticeTitle};
