@@ -5,11 +5,11 @@ import axios from "axios";
 const API_BASE_URL = "https://test.smu-notice.kr/api/mypage/bookmark";
 
 // 토큰 획득 함수
-export const getToken = () =>
+export const getToken = () =>{
   localStorage.getItem("kakaoToken") ||
   localStorage.getItem("naverToken") ||
   localStorage.getItem("googleToken");
-  
+}
 
 // 폴더 생성
 export const createFolder = async () => {
