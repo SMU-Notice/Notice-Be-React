@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import {
   BookmarkWrapper,
@@ -14,18 +14,18 @@ import {
   createFolder,
   renameFolder,
   getFolderPosts,
+  getToken,
+  removeBookmarkFromFolder ,
 } from "../../utils/bookmarkService";
 
-const BookMarkIcon = ({ isBookmarked, postId }) => {
+const BookMarkIcon = ({ isBookmarked: initialBookmarked, postId }) => {
   const [bookmarkFolders, setBookmarkFolders] = useState([]);
   const [showFolders, setShowFolders] = useState(false);
   const [showInput, setShowInput] = useState(false);
+  const [foldersWithPost, setFoldersWithPost] = useState([]);
   const [newFolderName, setNewFolderName] = useState("");
-
-  const getToken = () =>
-    localStorage.getItem("kakaoToken") ||
-    localStorage.getItem("naverToken") ||
-    localStorage.getItem("googleToken");
+  const [isBookmarked, setIsBookmarked] = useState(initialBookmarked);
+  const folderListRef = useRef(null);
 
   useEffect(() => {
     const fetchFolders = async () => {
@@ -38,6 +38,16 @@ const BookMarkIcon = ({ isBookmarked, postId }) => {
 
         if (response.data.success) {
           setBookmarkFolders(response.data.data);
+
+          const folderCheckPromises = response.data.data.map(async (folder) => {
+            const folderPostsData = await getFolderPosts(folder.id);  // returns { name, posts }
+            return folderPostsData?.posts?.some((post) => post.id === postId)
+              ? folder.id
+              : null;
+          });
+
+          const folderIdsWithPost = (await Promise.all(folderCheckPromises)).filter(Boolean);
+          setFoldersWithPost(folderIdsWithPost);
         } else {
           console.error("폴더 데이터 오류:", response.data.error);
         }
@@ -47,38 +57,70 @@ const BookMarkIcon = ({ isBookmarked, postId }) => {
     };
 
     fetchFolders();
-  }, []);
+  }, [postId]);
 
-  const toggleFolders = () => {
-    setShowFolders((prev) => !prev);
-    setShowInput(false);
-  };
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        folderListRef.current &&
+        !folderListRef.current.contains(event.target)
+      ) {
+        setShowFolders(false);
+        setShowInput(false);
+      }
+    };
+
+    if (showFolders) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    // cleanup
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showFolders]);
 
   const handleFolderClick = async (folderId) => {
     if (!postId) {
       alert("게시글 ID가 유효하지 않습니다.");
       return;
     }
-
+  
+    const alreadyBookmarked = foldersWithPost.includes(folderId);
+  
     try {
-      const { data } = await addBookmarkToFolder(folderId, postId);
-      if (data.success) {
-        alert("북마크가 폴더에 추가되었습니다.");
-        setShowFolders(false);
-
-        await getFolderPosts(folderId); 
+      if (alreadyBookmarked) {
+        const res = await removeBookmarkFromFolder(folderId, postId);
+        if (res.data.success) {
+          alert("북마크가 해제되었습니다.");
+          setFoldersWithPost((prev) => {
+            const updated = prev.filter((id) => id !== folderId);
+            setIsBookmarked(updated.length > 0);
+            return updated;
+          });
+        } else {
+          alert("북마크 해제 실패: " + res.data.error);
+        }
       } else {
-        alert("북마크 추가 실패: " + data.error);
+        const { data } = await addBookmarkToFolder(folderId, postId);
+        if (data.success) {
+          alert("북마크가 폴더에 추가되었습니다.");
+          setFoldersWithPost((prev) => [...prev, folderId]);
+          setIsBookmarked(true);
+        } else {
+          alert("북마크 추가 실패: " + data.error);
+        }
       }
+  
+      setShowFolders(false);
     } catch (error) {
-      if (error.response?.status === 409) {
-        alert("이미 북마크된 게시글입니다.");
-      } else {
-        console.error("북마크 추가 오류:", error);
-        alert("북마크 추가 중 오류 발생");
-      }
+      console.error("북마크 처리 중 오류:", error);
+      alert("북마크 처리 중 오류 발생");
     }
   };
+  
 
   const handleAddFolderClick = () => setShowInput(true);
 
@@ -123,14 +165,15 @@ const BookMarkIcon = ({ isBookmarked, postId }) => {
 
   return (
     <BookmarkWrapper>
-      <BookmarkButton onClick={toggleFolders} isBookmarked={isBookmarked}>
+      <BookmarkButton onClick={() => setShowFolders((prev) => !prev)} isBookmarked={isBookmarked}>
         북마크
       </BookmarkButton>
       {showFolders && (
-        <FolderList>
+        <FolderList ref={folderListRef}>
           {bookmarkFolders.map((folder) => (
             <FolderItem key={folder.id} onClick={() => handleFolderClick(folder.id)}>
               {folder.name}
+              {foldersWithPost.includes(folder.id) && " ✔️"}
             </FolderItem>
           ))}
           {!showInput ? (
