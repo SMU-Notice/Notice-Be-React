@@ -35,7 +35,7 @@ const AuthGoogle = () => {
 
                 localStorage.setItem("googleToken", data.data);
 
-                window.location.href = "/";
+                window.location.href = "/Mainpage";
             } catch (error) {
                 console.error("❌ 토큰 요청 오류:", error);
             }

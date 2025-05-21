@@ -296,11 +296,11 @@ const MyPageBookMark = () => {
         headers: { Authorization: `Bearer ${token}` },
       });
       const result = await res.json();
-      if (result.success && Array.isArray(result.data)) {
+      if (result.success && result.data && Array.isArray(result.data.posts)) {
         return result.data;
       } else {
         console.warn("게시글 데이터가 배열이 아님:", result.data);
-        return [];
+        return { posts: [] };
       }
     } catch (err) {
       console.error("게시글 조회 실패:", err);
@@ -329,7 +329,7 @@ const MyPageBookMark = () => {
         const posts = await fetchFolderPosts(selectedFolder.id);
         setFolderContents((prev) => ({
           ...prev,
-          [selectedFolder.id]: Array.isArray(posts) ? posts : [],
+          [selectedFolder.id]: posts,
         }));
       }
     }
@@ -341,7 +341,8 @@ const MyPageBookMark = () => {
 
   const goToEmailManage = () => navigate("/MyPageEmailManage");
   const goToProfileEdit = () => navigate("/MyPageProfileEdit");
-
+  
+  console.log("폴더 컨텐츠:", folderContents);
   return (
     <div className="bookmark-container">
       <aside className="sidebar">
@@ -366,7 +367,6 @@ const MyPageBookMark = () => {
             const isPlus = folder.name === "+";
             const isOpened = openFolderIndex === idx;
             const isHidden = openFolderIndex !== null && !isOpened;
-
             return (
               <div
                 key={folder.id || idx}
@@ -407,8 +407,9 @@ const MyPageBookMark = () => {
                   <>
                     <div className="folder-label fullscreen-label">{folder.name}</div>
                     <div className="file-list">
-                      {Array.isArray(folderContents[folder.id]) && folderContents[folder.id].length > 0 ? (
-                        folderContents[folder.id].map((file) => (
+                      {Array.isArray(folderContents[folder.id]?.posts) &&
+                      folderContents[folder.id].posts.length > 0 ? (
+                        folderContents[folder.id].posts.map((file) => (
                           <div key={file.id} className="file-item">
                             📄 {file.title}
                           </div>
@@ -416,7 +417,7 @@ const MyPageBookMark = () => {
                       ) : (
                         <div>게시글이 없습니다.</div>
                       )}
-                    </div>
+                    </div>  
                   </>
                 )}
               </div>
