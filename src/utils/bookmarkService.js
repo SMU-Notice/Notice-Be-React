@@ -6,9 +6,10 @@ const API_BASE_URL = "https://test.smu-notice.kr/api/mypage/bookmark";
 
 // 토큰 획득 함수
 export const getToken = () =>{
+  return(
   localStorage.getItem("kakaoToken") ||
   localStorage.getItem("naverToken") ||
-  localStorage.getItem("googleToken");
+  localStorage.getItem("googleToken"));
 }
 
 // 폴더 생성
