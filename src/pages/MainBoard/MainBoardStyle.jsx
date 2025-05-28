@@ -128,7 +128,7 @@ const NoticeTitleText = styled.div`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 80%;  
+  max-width: 85%;  
 `
 
 const CalendarIcon = styled.img`
@@ -151,12 +151,5 @@ const PostedTodayIcon = styled.img`
   width: 12px;
   height: 12px;
 `
-const StyledBookMarkIcon = styled(BookMarkIcon)`
-  fill: ${({ isBookmarked }) => (isBookmarked ? 'red' : '#ccc')};
-  width: 11px;
-  height: 11px;
-  margin-right: 2px;
-  margin-left: 8px;
-`;
 
-export {Container, TitleWrapper, Title, MoreButton, NoticeList, NoticeItem, Type, NoticeText, DateAndViews, NoticeTitleWrapper, NoticeTitleText, CalendarIcon, ViewIcon, PostedTodayIcon, StyledBookMarkIcon};
+export {Container, TitleWrapper, Title, MoreButton, NoticeList, NoticeItem, Type, NoticeText, DateAndViews, NoticeTitleWrapper, NoticeTitleText, CalendarIcon, ViewIcon, PostedTodayIcon};
