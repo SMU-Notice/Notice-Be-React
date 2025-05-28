@@ -89,6 +89,7 @@ const NoticeList = styled.div`
 const NoticeItem = styled.div`
   display: flex;
   align-items: center;
+  height: 57px;
   padding: 10px 0;
   transition: background-color 0.1s ease-in-out, font-weight 0.1s ease-in-out;
   &:last-child {
@@ -109,6 +110,7 @@ const Site = styled.span`
   font-weight: bold;
   margin-right: 10px;
   margin-left: 5px;
+  min-width: 25px;
   width: ${(props) => (props.first ? "25px" : "25px")};
   height: ${(props) => (props.first ? "25px" : "25px")};
   color: white;
@@ -147,10 +149,19 @@ const DateAndViews = styled.div`
   color: #777;
 `;
 
-const NoticeTitle = styled.div`
+const NoticeTitleWrapper = styled.div`
+  display: flex;
+  justify-content: flex-start;
+`;
+
+const NoticeTitleText = styled.div`
   font-size: ${(props) => (props.first ? "20px" : "15px")};
   font-weight: ${(props) => (props.first ? "bold" : "")};
   margin-bottom: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 70%;  
 `
 
 const CalendarIcon = styled.img`
@@ -190,4 +201,4 @@ const StyledBookMarkIcon = styled(BookMarkIcon)`
   margin-left: 8px;
 `;
 
-export{Container, Content, Title, Tabs, Tab, FilterRow, DateInput, SearchBox, SearchInput, Dropdown, Wrap, Line, NoticeList, NoticeItem, Site, NoticeText, DateAndViews, NoticeTitle, CalendarIcon, ViewIcon, SearchIcon, PostedTodayIcon, StyledBookMarkIcon};
+export{Container, Content, Title, Tabs, Tab, FilterRow, DateInput, SearchBox, SearchInput, Dropdown, Wrap, Line, NoticeList, NoticeItem, Site, NoticeText, DateAndViews, NoticeTitleWrapper, NoticeTitleText, CalendarIcon, ViewIcon, SearchIcon, PostedTodayIcon, StyledBookMarkIcon};

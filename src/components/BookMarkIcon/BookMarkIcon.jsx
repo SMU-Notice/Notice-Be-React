@@ -18,13 +18,12 @@ import {
   removeBookmarkFromFolder ,
 } from "../../utils/bookmarkService";
 
-const BookMarkIcon = ({ isBookmarked: initialBookmarked, postId }) => {
+const BookMarkIcon = ({ isBookmarked , postId }) => {
   const [bookmarkFolders, setBookmarkFolders] = useState([]);
   const [showFolders, setShowFolders] = useState(false);
   const [showInput, setShowInput] = useState(false);
   const [foldersWithPost, setFoldersWithPost] = useState([]);
   const [newFolderName, setNewFolderName] = useState("");
-  const [isBookmarked, setIsBookmarked] = useState(initialBookmarked);
   const folderListRef = useRef(null);
 
   useEffect(() => {
@@ -97,7 +96,6 @@ const BookMarkIcon = ({ isBookmarked: initialBookmarked, postId }) => {
           alert("북마크가 해제되었습니다.");
           setFoldersWithPost((prev) => {
             const updated = prev.filter((id) => id !== folderId);
-            setIsBookmarked(updated.length > 0);
             return updated;
           });
         } else {
@@ -108,7 +106,6 @@ const BookMarkIcon = ({ isBookmarked: initialBookmarked, postId }) => {
         if (data.success) {
           alert("북마크가 폴더에 추가되었습니다.");
           setFoldersWithPost((prev) => [...prev, folderId]);
-          setIsBookmarked(true);
         } else {
           alert("북마크 추가 실패: " + data.error);
         }

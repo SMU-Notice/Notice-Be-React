@@ -16,7 +16,6 @@ import {
   CalendarIcon,
   ViewIcon,
   PostedTodayIcon,
-  StyledBookMarkIcon
 } from "./MainBoardStyle";
 
 import calendarIcon from "../../assets/calendar.svg";
@@ -93,15 +92,13 @@ const MainBoard = () => {
             <NoticeTitleText>
             {notice.postType ? `[${notice.postType}]` : ''}{notice.title}
             </NoticeTitleText>
-            {notice.isPostedToday && (
-            <PostedTodayIcon src={postedTodayIcon} alt="postedTodayIcon" />)}
+            {notice.isPostedToday && (<PostedTodayIcon src={postedTodayIcon} alt="postedTodayIcon" />)}
             </NoticeTitleWrapper>
               <DateAndViews>
                 <CalendarIcon src={calendarIcon} alt="calendarIcon" />
                 {notice.postedDate}
                 <ViewIcon src={viewIcon} alt="viewIcon" />
                 {Number(notice.viewCount).toLocaleString()}
-                <StyledBookMarkIcon isBookmarked={notice.isBookmarked} />
               </DateAndViews>
             </NoticeText>
           </NoticeItem>
