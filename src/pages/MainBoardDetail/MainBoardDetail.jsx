@@ -51,7 +51,7 @@ const MainBoardDetail = () => {
   const [postType, setPostType] = useState(searchParams.get('postType') || '');
   const [startDate, setStartDate] = useState(searchParams.get('startDate') || '2024-03-01');
   const [endDate, setEndDate] = useState(searchParams.get('endDate') || '2026-02-28');
-  const [page, setPage] = useState(Number(searchParams.get('page')) || 7)
+  const [page, setPage] = useState(Number(searchParams.get('page')) || 1)
   const [pageGroup, setPageGroup] = useState(0);
   const pagesPerGroup = 10;
   const itemsPerPage = 7;
