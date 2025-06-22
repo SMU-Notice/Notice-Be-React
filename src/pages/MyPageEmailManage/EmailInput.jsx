@@ -10,7 +10,10 @@ export const EmailInput = () => {
   const handleRequestAuth = async () => {
     const fullEmail = `${localPart}@${selected === "직접 입력" ? customDomain : selected}`;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const googleToken = localStorage.getItem('googleToken');
+    const token =
+    localStorage.getItem("kakaoToken") ||
+    localStorage.getItem("naverToken") ||
+    localStorage.getItem("googleToken");
     if (!emailRegex.test(fullEmail)) {
       alert("유효한 이메일을 입력해주세요.");
       return;
@@ -21,7 +24,7 @@ export const EmailInput = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${googleToken}`,
+          "Authorization": `Bearer ${token}`,
         },
 
         body: JSON.stringify({ "email": fullEmail }),
@@ -67,7 +70,7 @@ export const EmailInput = () => {
               <input type="text" id="authInput" placeholder="인증번호 입력" />
               <button id="submitBtn">확인</button>
               <script>
-                const token = '${googleToken}';
+                const token = '${token}';
                 document.getElementById('submitBtn').onclick = function() {
                   const code = document.getElementById('authInput').value;
                   if (!code.trim()) {
